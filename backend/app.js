@@ -4,8 +4,9 @@ const app = express();
 //dotenv
 require("dotenv").config();
 
-//db connection
+//db connection & associations
 const { sequelize } = require("./db/connection");
+require("./db/associations");
 
 //Morgan for watching requests
 const morgan = require("morgan");
@@ -16,9 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Create router for endpoints
-app.use("/", require("./routes/home.js"));
-app.use("/auth", require("./routes/authRoutes.js"));
-app.use("/users", require("./routes/users"));
+app.use("/", require("./routes/main.js"));
 
 //port
 const port = process.env.PORT || 3004;
