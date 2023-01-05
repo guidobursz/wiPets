@@ -1,7 +1,7 @@
 //import jwt helper
 const { decodeToken } = require("../utils/jwtHelper");
 
-const userJWT = (req, res, next) => {
+const storeJWT = (req, res, next) => {
 	//Get complete header auth
 	let tokenHeader = req.headers.authorization;
 
@@ -18,17 +18,15 @@ const userJWT = (req, res, next) => {
 			/*
 			console.log("TOKEN DATA:", tokenData);
 			TOKEN DATA: {
-  				userID: 1,
-				lastName: 'Bursztyn',
-				firstName: 'Guido',
-				userEmail: 'guido@hotmail.com',
-				verified: false,
-				iat: 1672926358,
-				exp: 1673531158
-			}
+                "storeID": 1,
+                "storeEmail": "tienda1@gmail.com",
+                "verified": false,
+                "iat": 1672931998,
+                "exp": 1673536798
+            }
 			*/
 			//if token is real => it has if user is verified or not
-			if (tokenData.userID) {
+			if (tokenData.storeEmail) {
 				if (tokenData.verified === true) {
 					next();
 				} else if (tokenData.verified === false) {
@@ -41,4 +39,4 @@ const userJWT = (req, res, next) => {
 	}
 };
 
-module.exports = { userJWT };
+module.exports = { storeJWT };
