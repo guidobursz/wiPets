@@ -2,22 +2,25 @@
 const User = require("../db/models/User.js");
 
 const getAllUsers = async () => {
-  let allUsers = await User.findAll();
-  return allUsers;
+	let allUsers = await User.findAll();
+	return allUsers;
 };
 
 const getUserById = async (id) => {
-  let userById = await User.findOne({ where: { id } });
-  return userById;
+	let userById = await User.findOne({
+		where: { id },
+		attributes: { exclude: ["password"] },
+	});
+	return userById;
 };
 
 const updateUserById = async (data, id) => {
-  let userUpdated = await User.update(data, {
-    where: {
-      id,
-    },
-  });
-  return userUpdated;
+	let userUpdated = await User.update(data, {
+		where: {
+			id,
+		},
+	});
+	return userUpdated;
 };
 
 module.exports = { getAllUsers, getUserById, updateUserById };

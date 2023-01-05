@@ -6,6 +6,11 @@ const getAllPets = async () => {
 	return allPets;
 };
 
+const createPet = async (data) => {
+	let newPet = await Pet.create({ data });
+	return newPet;
+};
+
 const getPetById = async (id) => {
 	let petById = await Pet.findOne({ where: { id } });
 	return petById;
@@ -20,4 +25,4 @@ const updatePetById = async (data, id) => {
 	return petUpdated;
 };
 
-module.exports = { getAllPets, getPetById, updatePetById };
+module.exports = { getAllPets, createPet, getPetById, updatePetById };
