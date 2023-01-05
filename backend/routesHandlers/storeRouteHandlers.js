@@ -1,31 +1,26 @@
-const express = require("express");
-const router = express.Router();
-
 //Controller imports
 const {
 	getAllStores,
 	createStore,
 	getStoreById,
 	updateStoreById,
-} = require("../controllers/storeController.js");
+} = require("../modelsControllers/storeController.js");
 
-//Routes
+//handlers:
 // get all stores in DB
-router.get("/", async (req, res) => {
+const indexGET = async (req, res) => {
 	let allStores = await getAllStores();
 	return res.status(200).json({ allStores });
-});
-
+};
 //Get store data by ID
-router.post("/store/:id", async (req, res) => {
+const storeInfoPOST = async (req, res) => {
 	let { id } = req.params;
 
 	let storeByID = await getStoreById(id);
 	res.status(200).json({ storeByID });
-});
-
+};
 //Update store data
-router.put("/store/:id", async (req, res) => {
+const storeUpdatePUT = async (req, res) => {
 	let { id } = req.params;
 
 	//Inputs:
@@ -51,6 +46,5 @@ router.put("/store/:id", async (req, res) => {
 
 		res.status(200).json({ storeDataUpdated });
 	} catch (error) {}
-});
-
-module.exports = router;
+};
+module.exports = { indexGET, storeInfoPOST, storeUpdatePUT };

@@ -27,12 +27,12 @@ router.get("/", (req, res) => {
 
 //Routing:
 router.use("/auth", require("./authRoutes"));
-router.use("/appointments", require("./appointments"));
-router.use("/users", require("./users"));
-router.use("/stores", require("./stores"));
-router.use("/pets", require("./pets"));
+router.use("/appointments", require("./appointmentsRoutes"));
+router.use("/users", require("./usersRoutes"));
+router.use("/stores", require("./storesRoutes"));
+router.use("/pets", require("./petsRoutes"));
 
 //routes for bulk inserts, for dummy examples:
-router.use("/bulks", require("./bulks"));
+router.use("/bulks", require("./bulksRoutes"));
 
 module.exports = router;

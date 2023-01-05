@@ -1,30 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
-//Model
-// const pet = require("../db/models/pet");
-
-//Controller imports
-const {
-	getAllPets,
-	getPetById,
-	updatePetById,
-} = require("../controllers/petController");
+//handlers import
+const { indexGET, petInfoPOST } = require("../routesHandlers/petRouteHandlers");
 
 //Routes
 // get all pets in DB
-router.get("/", async (req, res) => {
-	let allpets = await getAllPets();
-	return res.status(200).json({ allpets });
-});
+router.get("/", indexGET);
 
 //Get pet data by ID
-router.post("/pet/:id", async (req, res) => {
-	let { id } = req.params;
-
-	let petByID = await getPetById(id);
-	res.status(200).json({ petByID });
-});
+router.post("/pet/:id", petInfoPOST);
 
 /* 
  Update pet data

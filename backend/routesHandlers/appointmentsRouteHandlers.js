@@ -1,26 +1,18 @@
-const express = require("express");
-const router = express.Router();
-
-//User model import
-// const User = require("../db/models/User");
-
 //Controller imports
 const {
 	getAllAppointments,
 	createAppointment,
 	getAppointmentById,
 	updateAppointmentById,
-} = require("../controllers/appointmentController");
+} = require("../modelsControllers/appointmentController");
 
-//Routes
 // get all appointments in DB
-router.get("/", async (req, res) => {
+const indexGET = async (req, res) => {
 	let allAppointments = await getAllAppointments();
 	return res.status(200).json({ allAppointments });
-});
-
+};
 //Create new appointment
-router.post("/appointment", async (req, res) => {
+const appointmentPOST = async (req, res) => {
 	//data for example insert
 	let StatusId = 4;
 	let comment = "Esto es un comentario simulado en el handler del endpoint";
@@ -41,20 +33,19 @@ router.post("/appointment", async (req, res) => {
 		let newAppointment = await createAppointment(queryData);
 		res.status(201).json({ newAppointment });
 	} catch (error) {
-		console.log(error);
+		res.status(500).json({ error });
 	}
-});
-
+};
 //Get appointment data by ID
-router.post("/appointment/:id", async (req, res) => {
+const appointmentInfoPOST = async (req, res) => {
 	let { id } = req.params;
 
 	let appointmentsByID = await getUserById(id);
 	res.status(200).json({ appointmentByID });
-});
+};
 
 //Update appointment data
-router.put("/appointment/:id", async (req, res) => {
+const appointmentUpdatePUT = async (req, res) => {
 	let { id } = req.params;
 
 	//Inputs:
@@ -79,7 +70,14 @@ router.put("/appointment/:id", async (req, res) => {
 		let appointmentDataUpdated = await getUserById(id);
 
 		res.status(200).json({ appointmentDataUpdated });
-	} catch (error) {}
-});
+	} catch (error) {
+		res.status(500).json({ error });
+	}
+};
 
-module.exports = router;
+module.exports = {
+	indexGET,
+	appointmentPOST,
+	appointmentInfoPOST,
+	appointmentUpdatePUT,
+};
