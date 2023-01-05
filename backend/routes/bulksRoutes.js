@@ -6,6 +6,7 @@ const {
 	fiveStoresGET,
 	fivePetsGET,
 	breedsGET,
+	petTypesGET,
 	statusGET,
 } = require("../routesHandlers/bulksRouteHandlers");
 
@@ -16,7 +17,9 @@ router.get("/5stores", fiveStoresGET);
 
 router.get("/5pets", fivePetsGET);
 
-router.get("/breeds", breedsGET);
+router.get("/pet-breeds", breedsGET);
+
+router.get("/pet-types", petTypesGET);
 
 router.get("/status", statusGET);
 

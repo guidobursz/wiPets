@@ -2,7 +2,8 @@
 const User = require("../db/models/User");
 const Store = require("../db/models/Store");
 const Pet = require("../db/models/Pet");
-const Breed = require("../db/models/Breed");
+const PetBreed = require("../db/models/PetBreed");
+const PetType = require("../db/models/PetType");
 const Status = require("../db/models/Status");
 
 //Create 5 users
@@ -119,43 +120,57 @@ const fivePetsGET = async (req, res) => {
 	const bulk5Pets = await Pet.bulkCreate([
 		{
 			name: "Katy",
-			type: "Dog",
-			breed: "ex",
 			age: 8,
 			gender: "female",
 			extra_info_one: "Hermosa",
 			extra_info_two: "Tranquila",
 			extra_info_three: "No juega",
+			userId: 3,
+			PetTypeId: 1,
+			PetBreedId: 10,
 		},
 		{
 			name: "Ruffo",
-			type: "Dog",
-			breed: "Golden Retriever",
 			age: 2,
 			gender: "male",
 			extra_info_one: "tam mediano",
+			userId: 3,
+			PetTypeId: 5,
+			PetBreedId: 23,
 		},
 		{
 			name: "Daisy",
-			type: "Dog",
-			breed: "ex",
+
 			age: 5,
 			gender: "male",
 			extra_info_one: "negrita",
+			userId: 3,
+			PetTypeId: 3,
+			PetBreedId: 52,
 		},
 		{
 			name: "Luna",
-			type: "Dog",
-			breed: "ex",
 			age: 4,
 			gender: "female",
+			userId: 3,
+			PetTypeId: 2,
+			PetBreedId: 32,
 		},
 		{
 			name: "Samuel",
-			type: "Dog",
-			breed: "ex",
 			age: 7,
 			gender: "male",
+			userId: 3,
+			PetTypeId: 1,
+			PetBreedId: 72,
+		},
+		{
+			name: "Manuelita",
+			age: 1,
+			gender: "Female",
+			userId: 2,
+			PetTypeId: 4,
+			PetBreedId: 72,
 		},
 	]);
 
@@ -164,7 +179,7 @@ const fivePetsGET = async (req, res) => {
 
 const breedsGET = async (req, res) => {
 	{
-		const breeds = await Breed.bulkCreate([
+		const PetBreeds = await PetBreed.bulkCreate([
 			{ name: "Affenpinscher" },
 			{ name: "Airedale terrier" },
 			{ name: "Akita" },
@@ -457,8 +472,30 @@ const breedsGET = async (req, res) => {
 			{ name: "Yorkshire Terrier" },
 		]);
 
-		res.status(201).json({ added: "ok", breeds });
+		res.status(201).json({ added: "ok", PetBreeds });
 	}
+};
+
+const petTypesGET = async (req, res) => {
+	const bulkPetTypes = await PetType.bulkCreate([
+		{
+			name: "Dog",
+		},
+		{
+			name: "Cat",
+		},
+		{
+			name: "Fish",
+		},
+		{
+			name: "Turtle",
+		},
+		{
+			name: "Bunny",
+		},
+	]);
+
+	res.status(201).json({ added: "ok", bulkPetTypes });
 };
 
 const statusGET = async (req, res) => {
@@ -475,6 +512,9 @@ const statusGET = async (req, res) => {
 		{
 			description: "Pending",
 		},
+		{
+			description: "Completed",
+		},
 	]);
 
 	res.status(201).json({ added: "ok", bulkStatus });
@@ -484,6 +524,7 @@ module.exports = {
 	fiveUsersGET,
 	fiveStoresGET,
 	fivePetsGET,
+	petTypesGET,
 	statusGET,
 	breedsGET,
 };

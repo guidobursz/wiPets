@@ -14,6 +14,7 @@ const indexGET = async (req, res) => {
 //Create new appointment
 const appointmentPOST = async (req, res) => {
 	//data for example insert
+	let { date, time } = req.body;
 	let StatusId = 4;
 	let comment = "Esto es un comentario simulado en el handler del endpoint";
 	let storeId = 1;
@@ -22,6 +23,8 @@ const appointmentPOST = async (req, res) => {
 
 	//create dataObj for query;
 	let queryData = {
+		date,
+		time,
 		StatusId,
 		comment,
 		StoreId: storeId,
@@ -40,8 +43,8 @@ const appointmentPOST = async (req, res) => {
 const appointmentInfoPOST = async (req, res) => {
 	let { id } = req.params;
 
-	let appointmentsByID = await getUserById(id);
-	res.status(200).json({ appointmentByID });
+	let appointmentsByID = await getAppointmentById(id);
+	res.status(200).json({ appointmentsByID });
 };
 
 //Update appointment data
@@ -65,9 +68,9 @@ const appointmentUpdatePUT = async (req, res) => {
 	//Update query
 	try {
 		//update query
-		let appointmentUpdated = await updateUserById(updateData, id);
+		let appointmentUpdated = await updateAppointmentById(updateData, id);
 		//get new appointment info query
-		let appointmentDataUpdated = await getUserById(id);
+		let appointmentDataUpdated = await getAppointmentById(id);
 
 		res.status(200).json({ appointmentDataUpdated });
 	} catch (error) {

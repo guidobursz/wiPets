@@ -4,6 +4,14 @@ const { sequelize } = require("../connection");
 class Appointment extends Model {}
 Appointment.init(
 	{
+		date: {
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+		time: {
+			type: DataTypes.TIME,
+			allowNull: false,
+		},
 		comment: {
 			type: DataTypes.STRING,
 		},

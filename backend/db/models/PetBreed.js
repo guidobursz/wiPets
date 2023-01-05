@@ -1,8 +1,8 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../connection");
 
-class Breed extends Model {}
-Breed.init(
+class PetBreed extends Model {}
+PetBreed.init(
 	{
 		name: {
 			type: DataTypes.STRING,
@@ -13,13 +13,14 @@ Breed.init(
 	{
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
-		modelName: "Breed", // We need to choose the model name
+		modelName: "PetBreed", // We need to choose the model name
+		tableName: "PetBreed",
 		timestamps: false,
 	}
 );
 
 //Export Model:
-module.exports = Breed;
+module.exports = PetBreed;
 
 // the defined model is the class itself
 // console.log(User === sequelize.models.User); // true
