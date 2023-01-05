@@ -27,7 +27,7 @@ router.get("/", (req, res) => {
 
 //Routing:
 router.use("/auth", require("./authRoutes"));
-router.use("/appointments", require("./appointmentsRoutes"));
+router.use("/appointments", userJWT, require("./appointmentsRoutes"));
 router.use("/users", require("./usersRoutes"));
 router.use("/stores", require("./storesRoutes"));
 router.use("/pets", require("./petsRoutes"));

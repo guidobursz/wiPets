@@ -30,6 +30,7 @@ const userJWT = (req, res, next) => {
 			//if token is real => it has if user is verified or not
 			if (tokenData.userID) {
 				if (tokenData.verified === true) {
+					req.decodeUserId = tokenData.userID;
 					next();
 				} else if (tokenData.verified === false) {
 					res.status(401).json({ error: "User not verified" });
