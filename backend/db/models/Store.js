@@ -8,6 +8,10 @@ Store.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
+		type: {
+			type: DataTypes.STRING,
+			allowNull: false,
+		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -33,7 +37,7 @@ Store.init(
 			type: DataTypes.STRING,
 			defaultValue: "waiting",
 		},
-		zip: {
+		province: {
 			type: DataTypes.STRING,
 			defaultValue: "waiting",
 		},
@@ -41,9 +45,13 @@ Store.init(
 			type: DataTypes.STRING,
 			defaultValue: "pepe",
 		},
-		province: {
+		zip: {
 			type: DataTypes.STRING,
 			defaultValue: "waiting",
+		},
+		verified: {
+			type: DataTypes.BOOLEAN,
+			defaultValue: 0,
 		},
 	},
 	{
