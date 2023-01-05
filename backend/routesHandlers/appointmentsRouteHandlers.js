@@ -4,7 +4,10 @@ const {
 	createAppointment,
 	getAppointmentById,
 	updateAppointmentById,
+	getAppointmentsByUserId,
 } = require("../modelsControllers/appointmentController");
+
+//utils:
 
 // get all appointments in DB
 const indexGET = async (req, res) => {
@@ -14,12 +17,12 @@ const indexGET = async (req, res) => {
 //Create new appointment
 const appointmentPOST = async (req, res) => {
 	//data for example insert
-	let { date, time } = req.body;
-	let StatusId = 4;
-	let comment = "Esto es un comentario simulado en el handler del endpoint";
-	let storeId = 1;
-	let userId = 1;
-	let petId = 1;
+	let { date, time, comment, StatusId, storeId, userId, petId } = req.body;
+	// let StatusId = 4;
+	// let comment = "Esto es un comentario simulado en el handler del endpoint";
+	// let storeId = 1;
+	// let userId = 1;
+	// let petId = 1;
 
 	//create dataObj for query;
 	let queryData = {
@@ -78,9 +81,18 @@ const appointmentUpdatePUT = async (req, res) => {
 	}
 };
 
+//Show all appointments for userId, id to receive, body userId
+const appointmentsUserId = async (req, res) => {
+	let id = req.decodeUserId;
+	console.log(id);
+	let userAppointments = await getAppointmentsByUserId(id);
+	return res.status(200).json({ userAppointments });
+};
+
 module.exports = {
 	indexGET,
 	appointmentPOST,
 	appointmentInfoPOST,
 	appointmentUpdatePUT,
+	appointmentsUserId,
 };

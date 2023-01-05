@@ -7,6 +7,7 @@ const {
 	appointmentPOST,
 	appointmentInfoPOST,
 	appointmentUpdatePUT,
+	appointmentsUserId,
 } = require("../routesHandlers/appointmentsRouteHandlers");
 //Routes
 // get all appointments in DB
@@ -20,5 +21,10 @@ router.post("/appointment/:id", appointmentInfoPOST);
 
 //Update appointment data
 router.put("/appointment/:id", appointmentUpdatePUT);
+
+//Show all appointments for userId
+router.post("/user/:id", appointmentsUserId);
+
+//Show all appointments for storeId
 
 module.exports = router;

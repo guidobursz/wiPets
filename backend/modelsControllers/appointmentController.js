@@ -64,9 +64,45 @@ const updateAppointmentById = async (data, id) => {
 	return AppointmentUpdated;
 };
 
+//Show all appointments for userId
+const getAppointmentsByUserId = async (id) => {
+	let appointmentsByUserId = await Appointment.findAll({
+		where: {
+			userId: id,
+		},
+		attributes: { exclude: ["UserId", "StoreId", "StatusId", "PetId"] },
+		include: [
+			{
+				model: Status,
+				attributes: ["description"],
+			},
+			{
+				model: Store,
+				attributes: ["name", "email", "phone_number"],
+			},
+			{
+				model: Pet,
+				attributes: ["name", "age", "gender"],
+				include: [
+					{
+						model: PetType,
+						attributes: ["name"],
+					},
+					{
+						model: PetBreed,
+						attributes: ["name"],
+					},
+				],
+			},
+		],
+	});
+	return appointmentsByUserId;
+};
+
 module.exports = {
 	getAllAppointments,
 	createAppointment,
 	getAppointmentById,
 	updateAppointmentById,
+	getAppointmentsByUserId,
 };
