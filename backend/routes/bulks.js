@@ -51,6 +51,7 @@ router.get("/5stores", async (req, res) => {
 	const bulk5Stores = await Store.bulkCreate([
 		{
 			name: "Tienda 1",
+			type: "washer",
 			email: "tienda1@gmail.com",
 			password: "$2a$08$JKIfAVrkowI./YqXqAg1x.l349yzH/exTf7BhrhGeIL9maAp5r1ja",
 			phone_number: "547634123",
@@ -63,6 +64,7 @@ router.get("/5stores", async (req, res) => {
 		},
 		{
 			name: "Tienda 2",
+			type: "vet",
 			email: "tienda2@gmail.com",
 			password: "$2a$08$JKIfAVrkowI./YqXqAg1x.l349yzH/exTf7BhrhGeIL9maAp5r1ja",
 			phone_number: "547634123",
@@ -75,6 +77,7 @@ router.get("/5stores", async (req, res) => {
 		},
 		{
 			name: "Tienda 3",
+			type: "vet hair",
 			email: "tienda3@gmail.com",
 			password: "$2a$08$JKIfAVrkowI./YqXqAg1x.l349yzH/exTf7BhrhGeIL9maAp5r1ja",
 			phone_number: "547634123",
@@ -87,6 +90,7 @@ router.get("/5stores", async (req, res) => {
 		},
 		{
 			name: "Tienda 4",
+			type: "vet hair washer",
 			email: "tienda4@gmail.com",
 			password: "$2a$08$JKIfAVrkowI./YqXqAg1x.l349yzH/exTf7BhrhGeIL9maAp5r1ja",
 			phone_number: "547634123",
@@ -99,6 +103,7 @@ router.get("/5stores", async (req, res) => {
 		},
 		{
 			name: "Tienda 5",
+			type: "vet washer",
 			email: "tienda5@gmail.com",
 			password: "$2a$08$JKIfAVrkowI./YqXqAg1x.l349yzH/exTf7BhrhGeIL9maAp5r1ja",
 			phone_number: "547634123",
