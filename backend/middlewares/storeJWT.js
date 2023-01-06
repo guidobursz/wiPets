@@ -28,9 +28,11 @@ const storeJWT = (req, res, next) => {
 			//if token is real => it has if user is verified or not
 			if (tokenData.storeEmail) {
 				if (tokenData.verified === true) {
+					//console.log(tokenData);
+					req.decodeStoreId = tokenData.storeID;
 					next();
 				} else if (tokenData.verified === false) {
-					res.status(401).json({ error: "User not verified" });
+					res.status(401).json({ error: "Store not verified" });
 				}
 			}
 		} catch (error) {

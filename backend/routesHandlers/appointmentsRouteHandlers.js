@@ -5,24 +5,28 @@ const {
 	getAppointmentById,
 	updateAppointmentById,
 	getAppointmentsByUserId,
+	getAllAppointmentsByStoreId,
+	getAllPENDINGAppointmentsByStoreId,
 } = require("../modelsControllers/appointmentController");
 
 //utils:
 
+//ADMIN
 // get all appointments in DB
 const indexGET = async (req, res) => {
 	let allAppointments = await getAllAppointments();
 	return res.status(200).json({ allAppointments });
 };
-//Create new appointment
-const appointmentPOST = async (req, res) => {
+
+//USER
+//Create new appointment by User
+const newAppointmentUserPOST = async (req, res) => {
 	//data for example insert
-	let { date, time, comment, StatusId, storeId, userId, petId } = req.body;
-	// let StatusId = 4;
-	// let comment = "Esto es un comentario simulado en el handler del endpoint";
-	// let storeId = 1;
-	// let userId = 1;
-	// let petId = 1;
+	//user will fill (in form?) and send themn by req boy
+	let { date, time, comment, storeId, petId } = req.body;
+	//This will be auto-fill
+	let StatusId = 4;
+	let userId = req.decodeUserId;
 
 	//create dataObj for query;
 	let queryData = {
@@ -42,6 +46,30 @@ const appointmentPOST = async (req, res) => {
 		res.status(500).json({ error });
 	}
 };
+//Get all appointments for userId, id to receive, body userId
+const appointmentsUserId = async (req, res) => {
+	let userId = req.decodeUserId;
+	let userAppointments = await getAppointmentsByUserId(userId);
+	return res.status(200).json({ userAppointments });
+};
+
+//STORE
+//Get all appointments for storeId, id to receive:
+const allAppointmentsByStoreIdGET = async (req, res) => {
+	let storeId = req.decodeStoreId;
+
+	let storeAppointments = await getAllAppointmentsByStoreId(storeId);
+	return res.status(200).json({ storeAppointments });
+};
+//Get all pending appointments for storeId, id to receive:
+const allPendingAppointmentsByStoreIdGET = async (req, res) => {
+	let storeId = req.decodeStoreId;
+
+	let storeAppointments = await getAllPENDINGAppointmentsByStoreId(storeId);
+	return res.status(200).json({ storeAppointments });
+};
+
+//NEUTRAL:
 //Get appointment data by ID
 const appointmentInfoPOST = async (req, res) => {
 	let { id } = req.params;
@@ -49,7 +77,6 @@ const appointmentInfoPOST = async (req, res) => {
 	let appointmentsByID = await getAppointmentById(id);
 	res.status(200).json({ appointmentsByID });
 };
-
 //Update appointment data
 const appointmentUpdatePUT = async (req, res) => {
 	let { id } = req.params;
@@ -81,18 +108,12 @@ const appointmentUpdatePUT = async (req, res) => {
 	}
 };
 
-//Show all appointments for userId, id to receive, body userId
-const appointmentsUserId = async (req, res) => {
-	let id = req.decodeUserId;
-	console.log(id);
-	let userAppointments = await getAppointmentsByUserId(id);
-	return res.status(200).json({ userAppointments });
-};
-
 module.exports = {
 	indexGET,
-	appointmentPOST,
+	newAppointmentUserPOST,
 	appointmentInfoPOST,
 	appointmentUpdatePUT,
 	appointmentsUserId,
+	allAppointmentsByStoreIdGET,
+	allPendingAppointmentsByStoreIdGET,
 };

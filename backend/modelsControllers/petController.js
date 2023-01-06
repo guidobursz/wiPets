@@ -7,7 +7,7 @@ const getAllPets = async () => {
 };
 
 const createPet = async (data) => {
-	let newPet = await Pet.create({ data });
+	let newPet = await Pet.create(data);
 	return newPet;
 };
 
@@ -25,4 +25,21 @@ const updatePetById = async (data, id) => {
 	return petUpdated;
 };
 
-module.exports = { getAllPets, createPet, getPetById, updatePetById };
+//USER
+//See userspet by usersId
+const getPetsByUserId = async (userId) => {
+	let usersPets = await Pet.findAll({
+		where: {
+			UserId: userId,
+		},
+	});
+	return usersPets;
+};
+
+module.exports = {
+	getAllPets,
+	createPet,
+	getPetById,
+	updatePetById,
+	getPetsByUserId,
+};

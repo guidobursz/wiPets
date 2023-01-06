@@ -3,6 +3,7 @@ const router = express.Router();
 
 //import middlewares
 const { userJWT } = require("../middlewares/userJWT");
+const { storeJWT } = require("../middlewares/storeJWT");
 
 //Index, will use as kind of index of endpoints
 router.get("/", (req, res) => {
@@ -27,7 +28,7 @@ router.get("/", (req, res) => {
 
 //Routing:
 router.use("/auth", require("./authRoutes"));
-router.use("/appointments", userJWT, require("./appointmentsRoutes"));
+router.use("/appointments", require("./appointmentsRoutes"));
 router.use("/users", require("./usersRoutes"));
 router.use("/stores", require("./storesRoutes"));
 router.use("/pets", require("./petsRoutes"));

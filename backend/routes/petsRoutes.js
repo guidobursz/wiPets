@@ -1,8 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
+//import middlewares
+const { userJWT } = require("../middlewares/userJWT");
+const { storeJWT } = require("../middlewares/storeJWT");
+
 //handlers import
-const { indexGET, petInfoPOST } = require("../routesHandlers/petRouteHandlers");
+const {
+	indexGET,
+	petInfoPOST,
+	newPetByOwnerPOST,
+	getUsersPetsByUserId,
+} = require("../routesHandlers/petRouteHandlers");
 
 //Routes
 // get all pets in DB
@@ -10,6 +19,12 @@ router.get("/", indexGET);
 
 //Get pet data by ID
 router.post("/pet/:id", petInfoPOST);
+
+//USER
+//Create new Pet by owner (userId)
+router.post("/pet", userJWT, newPetByOwnerPOST);
+//User sees only his pets.
+router.get("/user", userJWT, getUsersPetsByUserId);
 
 /* 
  Update pet data
