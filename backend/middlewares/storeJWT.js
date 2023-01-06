@@ -2,6 +2,14 @@
 const { decodeToken } = require("../utils/jwtHelper");
 
 const storeJWT = (req, res, next) => {
+	//Sent 401 if req.decodeUserId exists, bc this is an middle for only stores endpoints
+	if (req.decodeUserId) {
+		return res.status(401).json({
+			error: "You dont have acces to this enpoint",
+			Access: "Only Stores Accounts",
+		});
+	}
+
 	//Get complete header auth
 	let tokenHeader = req.headers.authorization;
 

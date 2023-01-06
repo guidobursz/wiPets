@@ -4,6 +4,8 @@ const router = express.Router();
 //import middlewares
 const { userJWT } = require("../middlewares/userJWT");
 const { storeJWT } = require("../middlewares/storeJWT");
+//
+const { checkJWT_passID } = require("../middlewares/checkJWT_passID");
 
 //import handlers:
 const {
@@ -23,20 +25,24 @@ router.get("/", indexGET);
 
 //USER
 //Create new appointment by user
-router.post("/appointment", newAppointmentUserPOST);
+router.post("/appointment", [checkJWT_passID, userJWT], newAppointmentUserPOST);
 //Show all appointments for userId
-router.post("/user/:id", appointmentsUserId);
+router.get("/user", [checkJWT_passID, userJWT], appointmentsUserId);
 
 //STORE
 //Show all appointments for storeId
-router.get("/store/", [storeJWT], allAppointmentsByStoreIdGET);
+router.get("/store/", [checkJWT_passID, storeJWT], allAppointmentsByStoreIdGET);
 //Show all pending appointments for storeId
-router.get("/store/pending", [storeJWT], allPendingAppointmentsByStoreIdGET);
+router.get(
+	"/store/pending",
+	[checkJWT_passID, storeJWT],
+	allPendingAppointmentsByStoreIdGET
+);
 
 //
 //Neutral:
 //Get appointment data by ID
-router.post("/appointment/:id", appointmentInfoPOST);
+router.post("/appointment/:id", [checkJWT_passID], appointmentInfoPOST);
 //Update appointment data
 router.put("/appointment/:id", appointmentUpdatePUT);
 

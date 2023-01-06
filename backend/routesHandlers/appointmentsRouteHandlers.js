@@ -49,6 +49,7 @@ const newAppointmentUserPOST = async (req, res) => {
 //Get all appointments for userId, id to receive, body userId
 const appointmentsUserId = async (req, res) => {
 	let userId = req.decodeUserId;
+	console.log("ttttest: ", userId);
 	let userAppointments = await getAppointmentsByUserId(userId);
 	return res.status(200).json({ userAppointments });
 };

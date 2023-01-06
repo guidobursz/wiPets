@@ -127,6 +127,20 @@ const getAllPENDINGAppointmentsByStoreId = async (id) => {
 };
 
 //Neutral
+//Get user and store ids by appointment id
+const getAppointUserStorePet = async (id) => {
+	try {
+		let UserStorePetIDs = await Appointment.findOne({
+			where: {
+				id,
+			},
+			attributes: ["UserId", "StoreId", "PetId"],
+		});
+		return UserStorePetIDs;
+	} catch (error) {
+		return res.status(500).json({ error });
+	}
+};
 //Find one by id
 const getAppointmentById = async (id) => {
 	let appointmentById = await Appointment.findOne({
@@ -183,4 +197,6 @@ module.exports = {
 	getAppointmentsByUserId,
 	getAllAppointmentsByStoreId,
 	getAllPENDINGAppointmentsByStoreId,
+	// to use at middleware: checkAppointmentUserStorePet
+	getAppointUserStorePet,
 };
