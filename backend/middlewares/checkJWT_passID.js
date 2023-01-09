@@ -53,7 +53,7 @@ const checkJWT_passID = (req, res, next) => {
 						next();
 					}
 				} else if (tokenData.verified === false) {
-					res.status(401).json({ error: "Store not verified" });
+					return res.status(401).json({ error: "Account not verified" });
 				}
 			}
 		} catch (error) {

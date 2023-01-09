@@ -13,9 +13,9 @@ const indexGET = async (req, res) => {
 };
 //Get user data by ID
 const userInfoPOST = async (req, res) => {
-	let { id } = req.params;
+	let { userId } = req.params;
 
-	let userByID = await getUserById(id);
+	let userByID = await getUserById(userId);
 	res.status(200).json({ userByID });
 };
 //Update user data
