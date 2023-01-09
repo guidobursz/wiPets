@@ -27,6 +27,7 @@ const userRegisterPOST = async (req, res) => {
 			last_name: lastname,
 			email,
 			password: hashP,
+			verified: true,
 		});
 		return res.status(202).json({ newUser });
 	} catch (error) {
@@ -111,6 +112,7 @@ const storeRegisterPost = async (req, res) => {
 			type,
 			email,
 			password: passwordHash,
+			verified: true,
 			phone_number,
 			address,
 			address_number,
