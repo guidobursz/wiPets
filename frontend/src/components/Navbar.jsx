@@ -3,10 +3,20 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 
+//TEsting context
+import { useContext } from "react";
+import AuthContext from "../context/AuthContex";
+//testing context
+
 // 0 not signed, 1 user, 2 store, 3 admin
-let userTest = 2;
+let userTest = 0;
 
 function CollapsibleExample() {
+	//test
+	const { authT, accInfo, logInAddCookies, logOffRemoveCookies } =
+		useContext(AuthContext);
+
+	//test
 	if (userTest === 0) {
 		return (
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
@@ -17,6 +27,7 @@ function CollapsibleExample() {
 					<Nav className="me-auto"></Nav>
 					<Nav>
 						<Nav.Link href="#deets">REGISTRO</Nav.Link>
+						<Nav.Link href="#deets"> LOGIN</Nav.Link>
 					</Nav>
 					{/* </Navbar.Collapse> */}
 				</Container>
