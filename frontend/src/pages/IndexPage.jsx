@@ -5,7 +5,7 @@ import Container from "react-bootstrap/Container";
 
 //Import Components
 import Navbar from "../components/Navbar";
-import TESTbtnCookie from "../components/TESTbtnCookie";
+// import TESTbtnCookie from "../components/TESTbtnCookie";
 import Footer from "../components/Footer";
 
 const indexPage = () => {
@@ -31,12 +31,8 @@ const indexPage = () => {
 				<h3>Mapa? mostrando las tiendas registradas?</h3>
 				<hr />
 				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<br />
-				<TESTbtnCookie />
+
+				{/* <TESTbtnCookie /> */}
 			</Container>
 			<Footer></Footer>
 		</div>

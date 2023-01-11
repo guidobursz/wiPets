@@ -2,71 +2,74 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { Link } from "react-router-dom";
 
 //TEsting context
 import { useContext } from "react";
 import AuthContext from "../context/AuthContex";
 //testing context
 
-// 0 not signed, 1 user, 2 store, 3 admin
-let userTest = 0;
-
 function CollapsibleExample() {
-	//test
-	const { authT, accInfo, logInAddCookies, logOffRemoveCookies } =
-		useContext(AuthContext);
+	//get contxt
+	const { authT, accInfo, logOffRemoveCookies } = useContext(AuthContext);
 
-	//test
-	if (userTest === 0) {
+	const makeLogOff = () => {
+		logOffRemoveCookies();
+	};
+
+	//If auth === false, no acc logged
+	if (authT === false) {
 		return (
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand href="#home">WiPet-0</Navbar.Brand>
+					<Navbar.Brand as={Link} href="#home">
+						WiPet-0
+					</Navbar.Brand>
 					{/* <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav"> */}
 					<Nav className="me-auto"></Nav>
 					<Nav>
-						<Nav.Link href="#deets">REGISTRO</Nav.Link>
-						<Nav.Link href="#deets"> LOGIN</Nav.Link>
+						<Nav.Link href="#">REGISTRO</Nav.Link>
+						<Nav.Link as={Link} to="/login">
+							LOGIN
+						</Nav.Link>
 					</Nav>
 					{/* </Navbar.Collapse> */}
 				</Container>
 			</Navbar>
 		);
 	}
-	if (userTest === 1) {
+	//if auth === true && AccType === user -> its user logged
+	if (authT === true && accInfo.accType === "user") {
 		return (
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand href="#home">WiPet-User</Navbar.Brand>
-					<Navbar.Toggle aria-controls="responsive-navbar-nav" />
-					<Navbar.Collapse id="responsive-navbar-nav">
-						<Nav className="me-auto"></Nav>
-						<Nav>
-							<NavDropdown title="FotitoPerfil" id="collasible-nav-dropdown">
-								<NavDropdown.Item href="#action/3.1">
-									Mi Perfil
-								</NavDropdown.Item>
-								<NavDropdown.Item href="#action/3.2">
-									Mis Reservas
-								</NavDropdown.Item>
-								<hr />
-								<NavDropdown.Item href="#action/3.3">
-									Cerrar Sesion
-								</NavDropdown.Item>
-								{/* <NavDropdown.Divider /> */}
-							</NavDropdown>
-						</Nav>
-					</Navbar.Collapse>
+					<Navbar.Brand href="/">WiPet - {accInfo.accType}</Navbar.Brand>
+
+					<Nav className="me-auto"></Nav>
+					<Nav>
+						<NavDropdown title="FotitoPerfil" id="collasible-nav-dropdown">
+							<NavDropdown.Item href="#action/3.1">Mi Perfil</NavDropdown.Item>
+							<NavDropdown.Item href="#action/3.2">
+								Mis Reservas
+							</NavDropdown.Item>
+							<hr />
+							<NavDropdown.Item onClick={makeLogOff}>
+								Cerrar Sesion
+							</NavDropdown.Item>
+							{/* <NavDropdown.Divider /> */}
+						</NavDropdown>
+					</Nav>
 				</Container>
 			</Navbar>
 		);
 	}
-	if (userTest === 2) {
+
+	if (authT === true && accInfo.accType === "store") {
 		return (
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand href="#home">WiPet-2</Navbar.Brand>
+					<Navbar.Brand href="/">WiPet - {accInfo.accType}</Navbar.Brand>
 					<Nav>
 						<Nav.Link href="#features">StoreName</Nav.Link>
 					</Nav>
@@ -79,7 +82,7 @@ function CollapsibleExample() {
 								<NavDropdown.Item href="#action/3.2">Reservas</NavDropdown.Item>
 
 								<hr />
-								<NavDropdown.Item href="#action/3.3">
+								<NavDropdown.Item onClick={makeLogOff}>
 									Cerrar Sesion
 								</NavDropdown.Item>
 								{/* <NavDropdown.Divider /> */}
@@ -91,5 +94,4 @@ function CollapsibleExample() {
 		);
 	}
 }
-
 export default CollapsibleExample;

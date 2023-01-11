@@ -13,6 +13,7 @@ const AuthProvider = ({ children }) => {
 	const [cookies, setCookie, removeCookie] = useCookies([
 		"ajt",
 		"AccType",
+		"accId",
 		"name",
 		"email",
 	]);
@@ -22,10 +23,6 @@ const AuthProvider = ({ children }) => {
 
 	//States
 	const [authT, setAuthT] = useState(null);
-	// const [ajt, setAjt] = useState(null);
-	// const [AccType, setAccType] = useState(null);
-	// const [name, setName] = useState(null);
-	// const [email, setEmail] = useState(null);
 	const [accInfo, setAccInfo] = useState({});
 
 	//First render, checks if user is already logged
@@ -36,16 +33,29 @@ const AuthProvider = ({ children }) => {
 		};
 
 		//Cookies dont no exist
-		if (!cookies.ajt || !cookies.AccType || !cookies.name || !cookies.email) {
+		if (
+			!cookies.ajt ||
+			!cookies.AccType ||
+			!cookies.accId ||
+			!cookies.name ||
+			!cookies.email
+		) {
 			setAuthT(false);
 			setAccInfo(null);
 		}
 		//cookies exists
-		if (cookies.ajt && cookies.AccType && cookies.name && cookies.email) {
+		if (
+			cookies.ajt &&
+			cookies.AccType &&
+			cookies.accId &&
+			cookies.name &&
+			cookies.email
+		) {
 			setAuthT(true);
 			let data = {
 				ajt: cookies.ajt,
 				accType: cookies.AccType,
+				accId: cookies.accID,
 				name: cookies.name,
 				email: cookies.email,
 			};
@@ -67,6 +77,7 @@ const AuthProvider = ({ children }) => {
 		//First: add cookies:
 		setCookie("ajt", data.ajt, { path: "/" });
 		setCookie("AccType", data.accType, { path: "/" });
+		setCookie("accId", data.accId, { path: "/" });
 		setCookie("name", data.name, { path: "/" });
 		setCookie("email", data.email, { path: "/" });
 		//Second: update states:
@@ -80,6 +91,7 @@ const AuthProvider = ({ children }) => {
 		const removeAllAuthCookies = () => {
 			removeCookie("ajt");
 			removeCookie("AccType");
+			removeCookie("accId");
 			removeCookie("name");
 			removeCookie("email");
 		};

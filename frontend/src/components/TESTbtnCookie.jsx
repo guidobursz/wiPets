@@ -8,6 +8,7 @@ const TESTbtnCookie = () => {
 	const [cookies, setCookie, removeCookie] = useCookies([
 		"ajt",
 		"AccType",
+		"accID",
 		"name",
 		"email",
 	]);
@@ -29,6 +30,7 @@ const TESTbtnCookie = () => {
 	function onClickSetAll() {
 		setCookie("ajt", "Eyasdasdasdsa1230411", { path: "/" });
 		setCookie("AccType", "user", { path: "/" });
+		setCookie("accID", "1", { path: "/" });
 		setCookie("name", "Gidou", { path: "/" });
 		setCookie("email", "guido@gmail.com", { path: "/" });
 	}
@@ -36,6 +38,24 @@ const TESTbtnCookie = () => {
 	function onClickDELAll() {
 		removeCookie("ajt");
 		removeCookie("AccType");
+		removeCookie("accID");
+		removeCookie("name");
+		removeCookie("email");
+	}
+
+	//store model:
+	function onClickSetAllS() {
+		setCookie("ajt", "Eyasdasdasdsa1230411", { path: "/" });
+		setCookie("AccType", "user", { path: "/" });
+		setCookie("accID", "1", { path: "/" });
+		setCookie("name", "Gidou", { path: "/" });
+		setCookie("email", "guido@gmail.com", { path: "/" });
+	}
+
+	function onClickDELAllS() {
+		removeCookie("ajt");
+		removeCookie("AccType");
+		removeCookie("accID");
 		removeCookie("name");
 		removeCookie("email");
 	}
@@ -46,8 +66,11 @@ const TESTbtnCookie = () => {
 			<button onClick={onClickGETBTN}>GET by name ajt</button>
 			<button onClick={onClickDELBTN}>DELETE ajt</button>
 			<br />
-			<button onClick={onClickSetAll}>Set ALL</button>
+			<button onClick={onClickSetAll}>Set ALL user</button>
 			<button onClick={onClickDELAll}>DELETE all</button>
+			<br />
+			<button onClick={onClickSetAllS}>Set ALL store</button>
+			<button onClick={onClickDELAllS}>DELETE all</button>
 		</div>
 	);
 };

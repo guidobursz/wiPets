@@ -6,7 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 
 const Footer = () => {
 	return (
-		<Navbar expand="lg" bg="dark" variant="dark" fixed="bottom">
+		<Navbar expand="lg" bg="dark" variant="dark">
 			<Container>
 				{/* mi primer intento */}
 				{/* <Navbar.Brand href="#home">WiPet-User</Navbar.Brand>

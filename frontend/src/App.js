@@ -20,7 +20,6 @@ function App() {
 				<Routes>
 					<Route path="/" element={<IndexPage />} />
 					<Route path="/login" element={<LoginPage />} />
-					{/* <Route path="/register" element={<RegisterPage />} /> */} */}
 					<Route path="*" element={<h1> Page does not exist </h1>} />
 				</Routes>
 			</Router>
