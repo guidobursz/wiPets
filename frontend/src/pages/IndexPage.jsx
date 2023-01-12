@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 //Import Components
 import Navbar from "../components/Navbar";
 import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
+import TableStoresHome from "../components/indexUse/TableStoresHome";
 // import TESTbtnCookie from "../components/TESTbtnCookie";
 import Footer from "../components/Footer";
 
@@ -26,7 +27,7 @@ const indexPage = () => {
 					<button>Lavado</button>
 					<button>Cortar pelo</button>
 				</div>
-				<h4>Preview de tiendas, random cumpliendo el filtro?</h4>
+				<TableStoresHome />
 				<br />
 				<hr />
 				<h3>Mapa? mostrando las tiendas registradas?</h3>

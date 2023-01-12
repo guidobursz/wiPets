@@ -39,12 +39,10 @@ export const storeLogin = async (data) => {
 };
 
 export const storeRegister = async (data) => {
-	console.log("data adentro: ", data);
 	//Make query:
 	let registerStoreQuery = await axios.post(
 		`${baseUrl}/auth/store/register`,
 		data
 	);
-	console.log(registerStoreQuery);
 	return registerStoreQuery;
 };
