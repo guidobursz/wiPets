@@ -22,7 +22,7 @@ function CollapsibleExample() {
 		return (
 			<Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
 				<Container>
-					<Navbar.Brand as={Link} href="#home">
+					<Navbar.Brand as={Link} to="/">
 						WiPet-0
 					</Navbar.Brand>
 					{/* <Navbar.Toggle aria-controls="responsive-navbar-nav" />

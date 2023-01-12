@@ -27,6 +27,7 @@ export const userLogin = async (data) => {
 	return loginQuery;
 };
 
+//Store:
 export const storeLogin = async (data) => {
 	let dataQuery = {
 		email: data.email,
@@ -35,4 +36,15 @@ export const storeLogin = async (data) => {
 	//Make query:
 	let loginQuery = await axios.post(`${baseUrl}/auth/store/login`, dataQuery);
 	return loginQuery;
+};
+
+export const storeRegister = async (data) => {
+	console.log("data adentro: ", data);
+	//Make query:
+	let registerStoreQuery = await axios.post(
+		`${baseUrl}/auth/store/register`,
+		data
+	);
+	console.log(registerStoreQuery);
+	return registerStoreQuery;
 };
