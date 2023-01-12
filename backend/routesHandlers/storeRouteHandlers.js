@@ -1,6 +1,7 @@
 //Controller imports
 const {
 	getAllStores,
+	getAllVerifiedStores,
 	createStore,
 	getStoreById,
 	updateStoreById,
@@ -12,6 +13,21 @@ const indexGET = async (req, res) => {
 	let allStores = await getAllStores();
 	return res.status(200).json({ allStores });
 };
+
+const verifiedStoresPOST = async (req, res) => {
+	// queryString must be an array
+	let queryString = req.body.filters;
+	// console.log("string : ", queryString);
+
+	//must sent an array as param
+	let queryArray = queryString.split(" ");
+	// console.log("query array: ", queryArray);
+	//must sent an array as param
+
+	let allVStores = await getAllVerifiedStores(queryArray);
+	return res.status(200).json({ allVStores });
+};
+
 //Get store data by ID
 const storeInfoPOST = async (req, res) => {
 	let { id } = req.params;
@@ -47,4 +63,9 @@ const storeUpdatePUT = async (req, res) => {
 		res.status(200).json({ storeDataUpdated });
 	} catch (error) {}
 };
-module.exports = { indexGET, storeInfoPOST, storeUpdatePUT };
+module.exports = {
+	indexGET,
+	verifiedStoresPOST,
+	storeInfoPOST,
+	storeUpdatePUT,
+};

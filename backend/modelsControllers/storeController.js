@@ -1,9 +1,36 @@
 //import model
 const Store = require("../db/models/Store");
 
+//Imp sequelzie helper
+const { Op } = require("sequelize");
+
 const getAllStores = async () => {
 	let allStores = await Store.findAll();
 	return allStores;
+};
+
+const getAllVerifiedStores = async (words) => {
+	//words will be = [''] or max = ['','','']
+	//let words = [];
+	let [w1 = "nono", w2 = "nono", w3 = "nono"] = words;
+
+	console.log("search word1 : ", w1);
+	console.log("search word2 : ", w2);
+	console.log("search word3 : ", w3);
+
+	let allVerifiedStores = await Store.findAll({
+		where: {
+			verified: true,
+			type: {
+				[Op.or]: [
+					{ [Op.substring]: w1 },
+					{ [Op.substring]: w2 },
+					{ [Op.substring]: w3 },
+				],
+			},
+		},
+	});
+	return allVerifiedStores;
 };
 
 const createStore = async (data) => {
@@ -51,6 +78,7 @@ const storeLogin = async (email) => {
 
 module.exports = {
 	getAllStores,
+	getAllVerifiedStores,
 	createStore,
 	getStoreById,
 	updateStoreById,
