@@ -29,7 +29,9 @@ function CollapsibleExample() {
 					<Navbar.Collapse id="responsive-navbar-nav"> */}
 					<Nav className="me-auto"></Nav>
 					<Nav>
-						<Nav.Link href="#">REGISTRO</Nav.Link>
+						<Nav.Link as={Link} to="/register/user">
+							REGISTRO
+						</Nav.Link>
 						<Nav.Link as={Link} to="/login">
 							LOGIN
 						</Nav.Link>

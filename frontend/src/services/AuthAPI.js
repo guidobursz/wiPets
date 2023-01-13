@@ -27,6 +27,15 @@ export const userLogin = async (data) => {
 	return loginQuery;
 };
 
+export const userRegister = async (data) => {
+	//Make query:
+	let registerStoreQuery = await axios.post(
+		`${baseUrl}/auth/user/register`,
+		data
+	);
+	return registerStoreQuery;
+};
+
 //Store:
 export const storeLogin = async (data) => {
 	let dataQuery = {

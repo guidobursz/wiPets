@@ -12,6 +12,7 @@ import { AuthProvider } from "./context/AuthContex";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterStorePage from "./pages/RegisterStorePage";
+import RegisterUserPage from "./pages/RegisterUserPage";
 
 //Main app
 function App() {
@@ -21,6 +22,7 @@ function App() {
 				<Routes>
 					<Route path="/" element={<IndexPage />} />
 					<Route path="/login" element={<LoginPage />} />
+					<Route path="/register/user" element={<RegisterUserPage />} />
 					<Route path="/register/store" element={<RegisterStorePage />} />
 					<Route path="*" element={<h1> Page does not exist </h1>} />
 				</Routes>
