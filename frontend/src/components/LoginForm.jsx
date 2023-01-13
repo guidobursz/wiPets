@@ -51,7 +51,6 @@ const LoginForm = () => {
 				// console.log("Response: ", userLoginQ);
 
 				//Save data in cookies after good login:
-
 				logInAddCookies({
 					ajt: userLoginQ.data.jwtToken,
 					accType: "user",

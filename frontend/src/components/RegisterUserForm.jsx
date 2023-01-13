@@ -59,6 +59,7 @@ const RegisterUserForm = () => {
 
 		try {
 			//Third. Create query.
+			// eslint-disable-next-line
 			let newUser = await userRegister(dataQuery);
 			//After insert:
 			setUserNameRegistered(firstName);

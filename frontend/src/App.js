@@ -13,6 +13,8 @@ import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
 import RegisterStorePage from "./pages/RegisterStorePage";
 import RegisterUserPage from "./pages/RegisterUserPage";
+import UserProfilePage from "./pages/UserProfilePage";
+import UserReservesPage from "./pages/UserReservesPage";
 
 //Main app
 function App() {
@@ -24,6 +26,9 @@ function App() {
 					<Route path="/login" element={<LoginPage />} />
 					<Route path="/register/user" element={<RegisterUserPage />} />
 					<Route path="/register/store" element={<RegisterStorePage />} />
+					<Route path="/user/:id" element={<UserProfilePage />} />
+					<Route path="/user/:id/reservas" element={<UserReservesPage />} />
+
 					<Route path="*" element={<h1> Page does not exist </h1>} />
 				</Routes>
 			</Router>

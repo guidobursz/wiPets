@@ -6,6 +6,7 @@ import Container from "react-bootstrap/Container";
 //Import Components
 import Navbar from "../components/Navbar";
 import RegisterUserForm from "../components/RegisterUserForm";
+import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
 import Footer from "../components/Footer";
 
 const RegisterUserPage = () => {
@@ -14,6 +15,7 @@ const RegisterUserPage = () => {
 			<Navbar />
 			<Container>
 				<RegisterUserForm />
+				<StoreRegisterOpt />
 			</Container>
 			<Footer />
 		</div>

@@ -39,10 +39,8 @@ const Footer = () => {
 										<h6 class="text-uppercase fw-bold mb-4">WiPet</h6>
 									</Navbar.Text>
 									<Navbar.Text>
-										Lorem ipsum dolor sit amet consectetur adipisicing elit.
-										Aut, culpa totam a tempore veritatis velit vel eaque id amet
-										consequuntur repellat dolor consequatur et maiores aliquid
-										animi
+										Nuestra mision es poder hacer mas sencilla la tarea de poder
+										reservar un turno para nuestras mascostas!
 									</Navbar.Text>
 								</Nav>
 							</div>

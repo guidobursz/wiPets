@@ -28,10 +28,12 @@ function CollapsibleExample() {
 					{/* <Navbar.Toggle aria-controls="responsive-navbar-nav" />
 					<Navbar.Collapse id="responsive-navbar-nav"> */}
 					<Nav className="me-auto"></Nav>
-					<Nav>
+					<Nav className="mr-2">
 						<Nav.Link as={Link} to="/register/user">
 							REGISTRO
 						</Nav.Link>
+					</Nav>
+					<Nav className="ml-2">
 						<Nav.Link as={Link} to="/login">
 							LOGIN
 						</Nav.Link>
@@ -51,8 +53,16 @@ function CollapsibleExample() {
 					<Nav className="me-auto"></Nav>
 					<Nav>
 						<NavDropdown title="FotitoPerfil" id="collasible-nav-dropdown">
-							<NavDropdown.Item href="#action/3.1">Mi Perfil</NavDropdown.Item>
-							<NavDropdown.Item href="#action/3.2">
+							<NavDropdown.Item
+								as={Link}
+								to={`/${accInfo.accType}/${accInfo.accId}`}
+							>
+								Mi Perfil
+							</NavDropdown.Item>
+							<NavDropdown.Item
+								as={Link}
+								to={`/${accInfo.accType}/${accInfo.accId}/reservas`}
+							>
 								Mis Reservas
 							</NavDropdown.Item>
 							<hr />

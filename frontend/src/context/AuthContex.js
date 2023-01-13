@@ -55,7 +55,7 @@ const AuthProvider = ({ children }) => {
 			let data = {
 				ajt: cookies.ajt,
 				accType: cookies.AccType,
-				accId: cookies.accID,
+				accId: Number(cookies.accId),
 				name: cookies.name,
 				email: cookies.email,
 			};
