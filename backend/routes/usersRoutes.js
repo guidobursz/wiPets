@@ -11,7 +11,7 @@ const { checkUserIDbyJWT } = require("../middlewares/checkUserIDbyJWT");
 //Handlers imports
 const {
 	indexGET,
-	userInfoPOST,
+	userInfoGET,
 	userUpdatePUT,
 } = require("../routesHandlers/userRouteHandlers");
 
@@ -20,7 +20,7 @@ const {
 router.get("/", indexGET);
 
 //Get user data by ID
-router.post("/user/:userId", [checkJWT_passID, checkUserIDbyJWT], userInfoPOST);
+router.get("/user/:userId", [checkJWT_passID, checkUserIDbyJWT], userInfoGET);
 
 //Update user data
 router.put("/user/:id", userUpdatePUT);

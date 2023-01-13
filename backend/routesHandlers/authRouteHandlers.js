@@ -5,6 +5,8 @@ const {
 	storeLogin,
 } = require("../modelsControllers/storeController");
 
+const { checkUserEmailExist } = require("../modelsControllers/userController");
+
 //Utils
 const { encrypt, hashCompare } = require("../utils/bcryptsjsHelper.js");
 const { signToken7Days } = require("../utils/jwtHelper.js");
@@ -15,23 +17,34 @@ const User = require("../db/models/User.js");
 //Handlers:
 //User register
 const userRegisterPOST = async (req, res) => {
-	let { name, lastname, email, password } = req.body;
+	let { name, lastname, email, password, birthday, phone } = req.body;
 
 	//create password hash & upload to db
 	try {
-		//hash password:
-		let hashP = await encrypt(password);
-		//sent to db:
-		let newUser = await User.create({
-			first_name: name,
-			last_name: lastname,
-			email,
-			password: hashP,
-			verified: false,
-		});
-		return res.status(202).json({ newUser });
+		//First if user with email exists:
+		//check if email already exists. (true exists, false does not exist)
+		let existEmail = await checkUserEmailExist(email);
+
+		if (existEmail === true) {
+			res.status(400).json({ error: "User with that email already exists" });
+		} else if (existEmail === false) {
+			//hash password:
+			let hashP = await encrypt(password);
+			//sent to db:
+			let newUser = await User.create({
+				first_name: name,
+				last_name: lastname,
+				email,
+				password: hashP,
+				birthday,
+				phone_number: phone,
+				verified: false,
+			});
+			return res.status(202).json({ newUser });
+		}
 	} catch (error) {
 		console.log("Error", error);
+		return res.status(500).json({ error });
 	}
 };
 //User login

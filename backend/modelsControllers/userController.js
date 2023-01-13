@@ -23,4 +23,19 @@ const updateUserById = async (data, id) => {
 	return userUpdated;
 };
 
-module.exports = { getAllUsers, getUserById, updateUserById };
+const checkUserEmailExist = async (email) => {
+	let response = await User.findOne({ where: { email } });
+	//console.log("tal resposne: ", response);
+	if (response === null) {
+		return false;
+	} else if (response.id) {
+		return true;
+	}
+};
+
+module.exports = {
+	getAllUsers,
+	getUserById,
+	updateUserById,
+	checkUserEmailExist,
+};

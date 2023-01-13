@@ -12,7 +12,7 @@ const indexGET = async (req, res) => {
 	return res.status(200).json({ allUsers });
 };
 //Get user data by ID
-const userInfoPOST = async (req, res) => {
+const userInfoGET = async (req, res) => {
 	let { userId } = req.params;
 
 	let userByID = await getUserById(userId);
@@ -47,4 +47,4 @@ const userUpdatePUT = async (req, res) => {
 	} catch (error) {}
 };
 
-module.exports = { indexGET, userInfoPOST, userUpdatePUT };
+module.exports = { indexGET, userInfoGET, userUpdatePUT };
