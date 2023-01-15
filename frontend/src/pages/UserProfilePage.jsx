@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 //Import utils:
 import { getUserById } from "../services/UserAPI";
+import { getUserPetsByUserId } from "../services/PetsAPI";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -34,6 +35,7 @@ const UserProfilePage = () => {
 	// console.log(tokenJ);
 
 	//Get user info for UserProfileDisplay, users pets for UserPetsDisplay
+	const [loadingUserInfo, setLoadingUserInfo] = useState(true);
 	const [userData, setUserData] = useState({});
 	const [userPetsData, setUserPetsData] = useState({});
 	//const [userAppointmentsData, setUserAppointmentsData] = useState({});
@@ -47,6 +49,7 @@ const UserProfilePage = () => {
 				let userDataFetch = await getUserById(userId, token);
 				// console.log(userDataFetch.data.userByID);
 				setUserData(userDataFetch.data.userByID);
+				setLoadingUserInfo(false);
 			} catch (error) {
 				console.log(error);
 			}
@@ -54,13 +57,30 @@ const UserProfilePage = () => {
 		getUserData(userId, tokenJ);
 	}, []);
 
+	//Get users pets.
+	const [loadingUserPets, setLoadingUsersPets] = useState(false);
+	const [userPets, setUsersPets] = useState([]);
+
+	const updateUsersPets = async () => {
+		setLoadingUsersPets(true);
+		//first make the fetch.
+		let usersPetsFetch = await getUserPetsByUserId(userId, tokenJ);
+		// console.log(usersPetsFetch.data.userPets);
+		setUsersPets(usersPetsFetch.data.userPets);
+		setLoadingUsersPets(false);
+	};
+
 	return (
 		<div>
 			<Navbar />
 			<Container>
-				<UserProfileDisplay user={userData} />
+				<UserProfileDisplay loading={loadingUserInfo} user={userData} />
 				<UserAppointmentsDisplay />
-				<UserPetsDisplay />
+				<UserPetsDisplay
+					loading={loadingUserPets}
+					fetchData={updateUsersPets}
+					petsData={userPets}
+				/>
 			</Container>
 			<Footer />
 		</div>
