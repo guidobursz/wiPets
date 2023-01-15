@@ -74,7 +74,9 @@ const newPetByOwnerPOST = async (req, res) => {
 const getUsersPetsByUserId = async (req, res) => {
 	//get user id from jwt decoded
 	let userId = req.decodeUserId;
-
+	let userId2 = req.params.id;
+	// console.log("segun json: ", userId);
+	// console.log("segun param: ", userId2);
 	try {
 		let userPets = await getPetsByUserId(userId);
 		return res.status(200).json({ userPets });

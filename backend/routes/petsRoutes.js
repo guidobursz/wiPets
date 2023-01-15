@@ -24,7 +24,7 @@ router.post("/pet/:id", petInfoPOST);
 //Create new Pet by owner (userId)
 router.post("/pet", userJWT, newPetByOwnerPOST);
 //User sees only his pets.
-router.get("/user", userJWT, getUsersPetsByUserId);
+router.get("/user/:id", userJWT, getUsersPetsByUserId);
 
 /* 
  Update pet data
