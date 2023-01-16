@@ -20,7 +20,7 @@ const createAppointment = async (data) => {
 	let newAppointment = await Appointment.create(data);
 	return newAppointment;
 };
-//Show all appointments for userId
+//Show all appointments for userId order by first coming.
 const getAppointmentsByUserId = async (id) => {
 	let appointmentsByUserId = await Appointment.findAll({
 		where: {
@@ -50,6 +50,10 @@ const getAppointmentsByUserId = async (id) => {
 					},
 				],
 			},
+		],
+		order: [
+			["date", "ASC"],
+			["time", "ASC"],
 		],
 	});
 	return appointmentsByUserId;

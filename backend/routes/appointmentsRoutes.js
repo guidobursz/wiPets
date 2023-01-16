@@ -9,13 +9,13 @@ const { checkJWT_passID } = require("../middlewares/checkJWT_passID");
 
 //import handlers:
 const {
-	indexGET,
-	newAppointmentUserPOST,
-	appointmentInfoPOST,
-	appointmentUpdatePUT,
-	appointmentsUserId,
-	allAppointmentsByStoreIdGET,
-	allPendingAppointmentsByStoreIdGET,
+  indexGET,
+  newAppointmentUserPOST,
+  appointmentInfoPOST,
+  appointmentUpdatePUT,
+  appointmentsUserId,
+  allAppointmentsByStoreIdGET,
+  allPendingAppointmentsByStoreIdGET,
 } = require("../routesHandlers/appointmentsRouteHandlers");
 
 //Routes
@@ -27,16 +27,16 @@ router.get("/", indexGET);
 //Create new appointment by user
 router.post("/appointment", [checkJWT_passID, userJWT], newAppointmentUserPOST);
 //Show all appointments for userId
-router.get("/user", [checkJWT_passID, userJWT], appointmentsUserId);
+router.get("/user/:id", [checkJWT_passID, userJWT], appointmentsUserId);
 
 //STORE
 //Show all appointments for storeId
 router.get("/store/", [checkJWT_passID, storeJWT], allAppointmentsByStoreIdGET);
 //Show all pending appointments for storeId
 router.get(
-	"/store/pending",
-	[checkJWT_passID, storeJWT],
-	allPendingAppointmentsByStoreIdGET
+  "/store/pending",
+  [checkJWT_passID, storeJWT],
+  allPendingAppointmentsByStoreIdGET
 );
 
 //
