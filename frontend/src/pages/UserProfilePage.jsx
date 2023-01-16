@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 //Import utils:
 import { getUserById } from "../services/UserAPI";
 import { getUserPetsByUserId } from "../services/PetsAPI";
+import { getUserAppointmentsByUserId } from "../services/AppointmentsAPI";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -57,6 +58,19 @@ const UserProfilePage = () => {
 		getUserData(userId, tokenJ);
 	}, []);
 
+	//Get users appoints.
+	const [loadingUserAppoints, setLoadingUsersAppoints] = useState(false);
+	const [userAppoints, setUsersAppoints] = useState([]);
+
+	const updateUsersAppoints = async () => {
+		setLoadingUsersAppoints(true);
+		//first make the fetch.
+		let usersAppointsFetch = await getUserAppointmentsByUserId(userId, tokenJ);
+		console.log(usersAppointsFetch.data.userAppointments);
+		setUsersAppoints(usersAppointsFetch.data.userAppointments);
+		setLoadingUsersAppoints(false);
+	};
+
 	//Get users pets.
 	const [loadingUserPets, setLoadingUsersPets] = useState(false);
 	const [userPets, setUsersPets] = useState([]);
@@ -75,7 +89,11 @@ const UserProfilePage = () => {
 			<Navbar />
 			<Container>
 				<UserProfileDisplay loading={loadingUserInfo} user={userData} />
-				<UserAppointmentsDisplay />
+				<UserAppointmentsDisplay
+					loading={loadingUserAppoints}
+					fetchData={updateUsersAppoints}
+					userAppointments={userAppoints}
+				/>
 				<UserPetsDisplay
 					loading={loadingUserPets}
 					fetchData={updateUsersPets}

@@ -14,53 +14,6 @@ import Col from "react-bootstrap/Col";
 
 const UserPetsDisplay = ({ loading, fetchData, petsData }) => {
 	//  console.log(typeof fetchData);
-	const fakePetsData = [
-		{
-			id: 1,
-			name: "Katy",
-			age: "8",
-			gender: "female",
-			extra_info_one: "Hermosa",
-			extra_info_two: "Tranquila",
-			extra_info_three: "No juega",
-			createdAt: "2023-01-05T19:25:34.000Z",
-			updatedAt: "2023-01-05T19:25:34.000Z",
-			deletedAt: null,
-			UserId: 9,
-			PetTypeId: 1,
-			PetBreedId: 10,
-		},
-		{
-			id: 2,
-			name: "Ruffo",
-			age: "2",
-			gender: "male",
-			extra_info_one: "tam mediano",
-			extra_info_two: null,
-			extra_info_three: null,
-			createdAt: "2023-01-05T19:25:34.000Z",
-			updatedAt: "2023-01-05T19:25:34.000Z",
-			deletedAt: null,
-			UserId: 9,
-			PetTypeId: 5,
-			PetBreedId: 23,
-		},
-		{
-			id: 5,
-			name: "Samuel",
-			age: "7",
-			gender: "male",
-			extra_info_one: null,
-			extra_info_two: null,
-			extra_info_three: null,
-			createdAt: "2023-01-05T19:25:34.000Z",
-			updatedAt: "2023-01-05T19:25:34.000Z",
-			deletedAt: null,
-			UserId: 9,
-			PetTypeId: 1,
-			PetBreedId: 72,
-		},
-	];
 
 	return (
 		<>

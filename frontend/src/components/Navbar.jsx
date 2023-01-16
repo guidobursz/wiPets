@@ -3,6 +3,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 //TEsting context
 import { useContext } from "react";
@@ -10,11 +11,13 @@ import AuthContext from "../context/AuthContex";
 //testing context
 
 function CollapsibleExample() {
+	const navigate = useNavigate();
 	//get contxt
 	const { authT, accInfo, logOffRemoveCookies } = useContext(AuthContext);
 
 	const makeLogOff = () => {
 		logOffRemoveCookies();
+		navigate("/");
 	};
 
 	//If auth === false, no acc logged
