@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 //Import utils:
 import { getUserById } from "../services/UserAPI";
 import { getUserPetsByUserId } from "../services/PetsAPI";
-import { getUserAppointmentsByUserId } from "../services/AppointmentsAPI";
+import { getThreeFollwingAppointmentsByUserId } from "../services/AppointmentsAPI";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -65,9 +65,12 @@ const UserProfilePage = () => {
 	const updateUsersAppoints = async () => {
 		setLoadingUsersAppoints(true);
 		//first make the fetch.
-		let usersAppointsFetch = await getUserAppointmentsByUserId(userId, tokenJ);
-		console.log(usersAppointsFetch.data.userAppointments);
-		setUsersAppoints(usersAppointsFetch.data.userAppointments);
+		let usersAppointsFetch = await getThreeFollwingAppointmentsByUserId(
+			userId,
+			tokenJ
+		);
+		console.log(usersAppointsFetch.data.ThreeFollowingAppointments);
+		setUsersAppoints(usersAppointsFetch.data.ThreeFollowingAppointments);
 		setLoadingUsersAppoints(false);
 	};
 

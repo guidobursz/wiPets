@@ -58,7 +58,47 @@ const getAppointmentsByUserId = async (id) => {
 	});
 	return appointmentsByUserId;
 };
+//Show 3 following appointments for user profile
+const GetFollowingThreeAppointsByUserId = async (id) => {
+	let appointmentsByUserId = await Appointment.findAll({
+		where: {
+			userId: id,
+		},
+		attributes: { exclude: ["UserId", "StoreId", "StatusId", "PetId"] },
+		include: [
+			{
+				model: Status,
+				attributes: ["description"],
+			},
+			{
+				model: Store,
+				attributes: ["name", "email", "phone_number"],
+			},
+			{
+				model: Pet,
+				attributes: ["name", "age", "gender"],
+				include: [
+					{
+						model: PetType,
+						attributes: ["name"],
+					},
+					{
+						model: PetBreed,
+						attributes: ["name"],
+					},
+				],
+			},
+		],
+		order: [
+			["date", "ASC"],
+			["time", "ASC"],
+		],
+		limit: 3,
+	});
+	return appointmentsByUserId;
+};
 
+/////////////////////////////////////////////////////////////////
 //Store
 //show all appointments for storeId
 const getAllAppointmentsByStoreId = async (id) => {
@@ -201,6 +241,7 @@ module.exports = {
 	getAppointmentsByUserId,
 	getAllAppointmentsByStoreId,
 	getAllPENDINGAppointmentsByStoreId,
+	GetFollowingThreeAppointsByUserId,
 	// to use at middleware: checkAppointmentUserStorePet
 	getAppointUserStorePet,
 };

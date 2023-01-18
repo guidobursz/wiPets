@@ -6,6 +6,7 @@ const {
 	updateAppointmentById,
 	getAppointmentsByUserId,
 	getAllAppointmentsByStoreId,
+	GetFollowingThreeAppointsByUserId,
 	getAllPENDINGAppointmentsByStoreId,
 } = require("../modelsControllers/appointmentController");
 
@@ -46,6 +47,17 @@ const newAppointmentUserPOST = async (req, res) => {
 		res.status(500).json({ error });
 	}
 };
+//Get the three following appointments for userId, id to receive, body userId
+const threeFollowingAppointmentsByUserId = async (req, res) => {
+	//let userId = req.decodeUserId;
+	let userId = req.params.id;
+
+	let ThreeFollowingAppointments = await GetFollowingThreeAppointsByUserId(
+		userId
+	);
+	return res.status(200).json({ ThreeFollowingAppointments });
+};
+
 //Get all appointments for userId, id to receive, body userId
 const appointmentsUserId = async (req, res) => {
 	//let userId = req.decodeUserId;
@@ -118,4 +130,5 @@ module.exports = {
 	appointmentsUserId,
 	allAppointmentsByStoreIdGET,
 	allPendingAppointmentsByStoreIdGET,
+	threeFollowingAppointmentsByUserId,
 };
