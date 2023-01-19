@@ -501,10 +501,10 @@ const petTypesGET = async (req, res) => {
 const statusGET = async (req, res) => {
 	const bulkStatus = await Status.bulkCreate([
 		{
-			description: "Cancel",
+			description: "Cancelled",
 		},
 		{
-			description: "Confirm",
+			description: "Confirmed",
 		},
 		{
 			description: "Contact",

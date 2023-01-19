@@ -7,6 +7,9 @@ const Pet = require("../db/models/Pet");
 const PetType = require("../db/models/PetType");
 const PetBreed = require("../db/models/PetBreed");
 
+//Imp sequelzie helper
+const { Op } = require("sequelize");
+
 //ADMIN
 //Use by ADMIN for check ALL appointments
 const getAllAppointments = async () => {
@@ -21,7 +24,38 @@ const createAppointment = async (data) => {
 	return newAppointment;
 };
 //Show all appointments for userId order by first coming.
-const getAppointmentsByUserId = async (id) => {
+const getAppointmentsByUserId = async (id, filters) => {
+	/* 
+		Filters will be:
+			{
+				storeName: "" // "exex",
+				petName: "" // "exex",
+				services: false // [ 'vet' ] // [ 'vet', 'hair' ],	
+				statues: false // statues: [ 'pending' ] // [ 'pending', 'confirmed', 'cancelled' ],	
+			}
+	*/
+
+	/*
+    [Op.and]: [{ a: 5 }, { b: 6 }],  // (a = 5) AND (b = 6)
+    [Op.or]: [{ a: 5 }, { b: 6 }],   // (a = 5) OR (b = 6)
+
+	my query seria:
+	{
+				model: Status,
+				attributes: ["description"],
+				where:{
+					[Op.or]: [
+					{ [Op.substring]: w1 },
+					{ [Op.substring]: w2 },
+					{ [Op.substring]: w3 },
+					{ [Op.substring]: w3 },
+					{ [Op.substring]: w3 },
+				],
+				}
+			},
+	*/
+	console.log("recibo en la query: ", filters);
+
 	let appointmentsByUserId = await Appointment.findAll({
 		where: {
 			userId: id,
@@ -31,10 +65,24 @@ const getAppointmentsByUserId = async (id) => {
 			{
 				model: Status,
 				attributes: ["description"],
+				where: {
+					description: {
+						[Op.or]: [
+							{ [Op.substring]: filters.statues.w1 },
+							{ [Op.substring]: filters.statues.w2 },
+							{ [Op.substring]: filters.statues.w3 },
+							{ [Op.substring]: filters.statues.w4 },
+							{ [Op.substring]: filters.statues.w5 },
+						],
+					},
+				},
 			},
 			{
 				model: Store,
 				attributes: ["name", "email", "phone_number"],
+				where: {
+					name: { [Op.substring]: filters.storeName },
+				},
 			},
 			{
 				model: Pet,
@@ -49,6 +97,9 @@ const getAppointmentsByUserId = async (id) => {
 						attributes: ["name"],
 					},
 				],
+				where: {
+					name: { [Op.substring]: filters.petName },
+				},
 			},
 		],
 		order: [

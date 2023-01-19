@@ -34,7 +34,7 @@ router.get(
 	threeFollowingAppointmentsByUserId
 );
 //Show all appointments for userId
-router.get("/user/:id", [checkJWT_passID, userJWT], appointmentsUserId);
+router.post("/user/:id", [checkJWT_passID, userJWT], appointmentsUserId);
 
 //STORE
 //Show all appointments for storeId

@@ -62,8 +62,77 @@ const threeFollowingAppointmentsByUserId = async (req, res) => {
 const appointmentsUserId = async (req, res) => {
 	//let userId = req.decodeUserId;
 	let userId = req.params.id;
+	let filtersBody = req.body.filters;
+	// console.log("body received in endpoint: ", filtersBody);
+	//Filters for query
+	let filters = {
+		storeName: filtersBody.storeName,
+		petName: filtersBody.petName,
+	};
 
-	let userAppointments = await getAppointmentsByUserId(userId);
+	//For filtering statues:
+	if (filtersBody.statues === false || filtersBody.statues.length === 0) {
+		let statuesObj = {
+			w1: "",
+			w2: "",
+			w3: "",
+			w4: "",
+			w5: "",
+		};
+		filters.statues = statuesObj;
+	} else if (filtersBody.statues != false) {
+		//Not working: let [w1, w2, w3, w4, w5] = filtersBody.statues;
+
+		// Not working x2:
+		// filters.statues.w1 = filtersBody.statues[0];
+		// filters.statues.w2 = filtersBody.statues[1];
+		// filters.statues.w3 = filtersBody.statues[2];
+		// filters.statues.w4 = filtersBody.statues[3];
+		// filters.statues.w5 = filtersBody.statues[4];
+
+		//3, working:
+		// let statuesQueryArray = filtersBody.statues;
+		// console.log(statuesQueryArray);
+		//filters.statues = statuesQueryArray;
+
+		//4:
+		let statuesQueryArray = filtersBody.statues;
+		let [w1 = "nono", w2 = "nono", w3 = "nono", w4 = "nono", w5 = "nono"] =
+			statuesQueryArray;
+
+		let statuesObj = {
+			w1,
+			w2,
+			w3,
+			w4,
+			w5,
+		};
+		filters.statues = statuesObj;
+	}
+
+	//For filtering service type:
+	if (filtersBody.services === false || filtersBody.services.length === 0) {
+		let servicesObj = {
+			w1: "",
+			w2: "",
+			w3: "",
+		};
+		filters.services = servicesObj;
+	} else if (filtersBody.services != false) {
+		let servicesQueryArray = filtersBody.services;
+		let [w1 = "nono", w2 = "nono", w3 = "nono", w4 = "nono", w5 = "nono"] =
+			servicesQueryArray;
+
+		let servicesObj = {
+			w1,
+			w2,
+			w3,
+		};
+		filters.services = servicesObj;
+	}
+
+	// console.log("Filtros pre query", filters);
+	let userAppointments = await getAppointmentsByUserId(userId, filters);
 	return res.status(200).json({ userAppointments });
 };
 

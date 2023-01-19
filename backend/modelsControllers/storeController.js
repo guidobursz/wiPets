@@ -14,9 +14,9 @@ const getAllVerifiedStores = async (words) => {
 	//let words = [];
 	let [w1 = "nono", w2 = "nono", w3 = "nono"] = words;
 
-	console.log("search word1 : ", w1);
-	console.log("search word2 : ", w2);
-	console.log("search word3 : ", w3);
+	// console.log("search word1 : ", w1);
+	// console.log("search word2 : ", w2);
+	// console.log("search word3 : ", w3);
 
 	let allVerifiedStores = await Store.findAll({
 		where: {
