@@ -74,19 +74,6 @@ const UserProfilePage = () => {
 		setLoadingUsersAppoints(false);
 	};
 
-	//Get users pets.
-	const [loadingUserPets, setLoadingUsersPets] = useState(false);
-	const [userPets, setUsersPets] = useState([]);
-
-	const updateUsersPets = async () => {
-		setLoadingUsersPets(true);
-		//first make the fetch.
-		let usersPetsFetch = await getUserPetsByUserId(userId, tokenJ);
-		// console.log(usersPetsFetch.data.userPets);
-		setUsersPets(usersPetsFetch.data.userPets);
-		setLoadingUsersPets(false);
-	};
-
 	return (
 		<div>
 			<Navbar />
@@ -97,11 +84,7 @@ const UserProfilePage = () => {
 					fetchData={updateUsersAppoints}
 					userAppointments={userAppoints}
 				/>
-				<UserPetsDisplay
-					loading={loadingUserPets}
-					fetchData={updateUsersPets}
-					petsData={userPets}
-				/>
+				<UserPetsDisplay />
 			</Container>
 			<Footer />
 		</div>

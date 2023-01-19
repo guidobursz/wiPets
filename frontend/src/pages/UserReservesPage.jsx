@@ -18,16 +18,21 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContex";
 
 const UserReservesPage = () => {
-  return (
-    <div>
-      <Navbar />
-      <Container>
-        <FilterInputs />
-        <ReservesTableDisplay />
-      </Container>
-      <Footer />
-    </div>
-  );
+	return (
+		<div>
+			<Navbar />
+			<Container>
+				<h2>Filtros: </h2>
+				<h2>TEXTO - Pet Name</h2>
+				<h2>TEXTO - Store Name</h2>
+				<h2>Tipo: Select?</h2>
+				<h2>Estado, Select? </h2>
+				<FilterInputs />
+				<ReservesTableDisplay />
+			</Container>
+			<Footer />
+		</div>
+	);
 };
 
 export default UserReservesPage;
