@@ -4,7 +4,7 @@ import Button from "react-bootstrap/Button";
 
 const StoreRegisterOpt = () => {
 	return (
-		<div class="mt-2 mb-2 rounded border border-warning">
+		<div className="mt-2 mb-2 rounded border border-warning">
 			<div className="mt-2 mb-2 d-flex justify-content-center">
 				¿Tenes una tienda? ¿Te gustaria verla en la web?
 			</div>

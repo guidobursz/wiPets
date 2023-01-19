@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import { getUserPetsByUserId } from "../../services/PetsAPI";
 
 //import components
-import CustomAlert from "../CustomAlert";
 import SpinnerBootstrap from "../SpinnerBootstrap";
 import PetPreview from "../PetPreview";
 import {
@@ -150,7 +149,7 @@ const UserPetsDisplay = () => {
 														) : (
 															petsData.map((el, idx) => {
 																return (
-																	<div className="m-1">
+																	<div className="m-1" key={idx}>
 																		<PetPreview key={idx} data={el} />
 																	</div>
 																);

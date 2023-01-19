@@ -1,8 +1,8 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
 //Import utils:
-import { getThreeFollwingAppointmentsByUserId } from "../services/AppointmentsAPI";
+import { getALLUserAppointmentsByUserId } from "../services/AppointmentsAPI";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -18,17 +18,45 @@ import { useContext } from "react";
 import AuthContext from "../context/AuthContex";
 
 const UserReservesPage = () => {
+	//Get userId
+	let params = useParams();
+	let userId = params.id;
+	//Get context data for jwt:
+	const { accInfo } = useContext(AuthContext);
+	let tokenJ = accInfo.ajt;
+	//inital query state
+	let initialFilters = {
+		storeName: "",
+		petName: "",
+		services: false,
+		statues: false,
+	};
+	//States
+	const [queryFilters, setQueryFilters] = useState(initialFilters);
+	const [rowsData, setRowsData] = useState([]);
+
+	//Effect for reQuerying every change in queryFilters
+	useEffect(() => {
+		//Make query for rowsData
+		const updateRowData = async (queryFilters) => {
+			let fetchData = await getALLUserAppointmentsByUserId(
+				userId,
+				tokenJ,
+				queryFilters
+			);
+			// console.log(fetchData.data.userAppointments);
+			setRowsData(fetchData.data.userAppointments);
+		};
+		updateRowData(queryFilters);
+	}, [queryFilters]);
+
 	return (
 		<div>
 			<Navbar />
 			<Container>
-				<h2>Filtros: </h2>
-				<h2>TEXTO - Pet Name</h2>
-				<h2>TEXTO - Store Name</h2>
-				<h2>Tipo: Select?</h2>
-				<h2>Estado, Select? </h2>
-				<FilterInputs />
-				<ReservesTableDisplay />
+				<br />
+				<FilterInputs updateFilters={setQueryFilters} />
+				<ReservesTableDisplay rowsData={rowsData} />
 			</Container>
 			<Footer />
 		</div>
