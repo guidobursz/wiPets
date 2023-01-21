@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 
 //Import queries
+import { newPetByUser } from "../../services/PetsAPI";
 
 //import components
 import CustomAlert from "../CustomAlert";
@@ -14,7 +15,9 @@ import Alert from "react-bootstrap/Alert";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const NewPetForm = () => {
+const NewPetForm = ({ idata }) => {
+  const { userId, tokenJ } = idata;
+
   const {
     register,
     handleSubmit,
@@ -27,11 +30,60 @@ const NewPetForm = () => {
   const [registersuccessfully, setRegisterSuccessfully] = useState(false);
   //In case of an error
   const [registerError, setRegisterError] = useState(false);
-  const [registerErrorMessage, setRegisterMessage] = useState(false);
+  const [registerErrorMessage, setRegisterMessage] = useState("");
 
   //Handle submit:
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
+    //first loadingQuery true;
+    setLoadingQuery(true);
+
+    //create query data obj
+    let dataQuery = {};
+    //fill properties with the data from the form:
+    dataQuery.name = data.name;
+    dataQuery.age = Number(data.age);
+    dataQuery.gender = data.petGender;
+    dataQuery.PetTypeId = data.petType;
+    dataQuery.PetBreedId = data.petBreed;
+
+    //check if there is more info.
+    if (data.eiOne.length > 0) {
+      dataQuery.extra_info_one = data.eiOne;
+    }
+    if (data.eiTwo.length > 0) {
+      dataQuery.extra_info_two = data.eiTwo;
+    }
+    if (data.eiThree.length > 0) {
+      dataQuery.extra_info_three = data.eiThree;
+    }
+
+    //Add user related data:
+    dataQuery.UserId = Number(userId);
+
+    //Check data for query
+    // console.log("Data for query: ", dataQuery);
+
+    //Make insert query;
+    try {
+      //try insert query:
+      let newPet = await newPetByUser(dataQuery, tokenJ);
+      console.log(newPet);
+      //make register successfully to true;
+      setRegisterSuccessfully(true);
+      //set loading to false
+      setLoadingQuery(false);
+      //
+    } catch (error) {
+      //register error and message
+      console.log(error);
+      setRegisterError(true);
+      setRegisterMessage("Hubo un error en el registro, intente nuevamente.");
+      //set loading to false
+      setLoadingQuery(false);
+    }
+
+    //
   };
 
   const testError = (variant, text) => (
@@ -44,9 +96,7 @@ const NewPetForm = () => {
 
   return (
     <>
-      <div>
-        <h2>pepe testing</h2>
-      </div>
+      <div>Titulo dentro del form file</div>
 
       {/* div for center spinner */}
       <div className="mx-auto">
@@ -120,7 +170,7 @@ const NewPetForm = () => {
           </Row>
           <br />
           <Row>
-            <Col className="col-6">
+            <Col className="col-4">
               <Form.Group className="" controlId="formBasicPetType">
                 <div class="d-flex justify-content-center">
                   <Form.Label>Animal</Form.Label>
@@ -130,8 +180,8 @@ const NewPetForm = () => {
                   {...register("petType", { required: true })}
                 >
                   <option value="">Elige clase...</option>
-                  <option value="dog">Perro</option>
-                  <option value="cat">Gato</option>
+                  <option value="1">Perro</option>
+                  <option value="2">Gato</option>
                 </Form.Select>
 
                 <Form.Text className="text-muted">
@@ -143,7 +193,7 @@ const NewPetForm = () => {
                 </Form.Text>
               </Form.Group>
             </Col>
-            <Col className="col-6">
+            <Col className="col-4">
               <Form.Group className="" controlId="formBasicPetBreed">
                 <div class="d-flex justify-content-center">
                   <Form.Label>Raza</Form.Label>
@@ -153,14 +203,38 @@ const NewPetForm = () => {
                   {...register("petBreed", { required: true })}
                 >
                   <option value="">Elige raza...</option>
-                  <option value="dog">r1</option>
-                  <option value="cat">r2</option>
+                  <option value="1">r1</option>
+                  <option value="2">r2</option>
                 </Form.Select>
 
                 <Form.Text className="text-muted">
                   {errors.petBreed?.type === "required" && (
                     <Alert variant="danger">
                       Es obligatorio seleccionar la raza
+                    </Alert>
+                  )}
+                </Form.Text>
+              </Form.Group>
+            </Col>
+
+            <Col className="col-4">
+              <Form.Group className="" controlId="formBasicPetGender">
+                <div class="d-flex justify-content-center">
+                  <Form.Label>Genero</Form.Label>
+                </div>
+                <Form.Select
+                  type="select"
+                  {...register("petGender", { required: true })}
+                >
+                  <option value="">Elige genero...</option>
+                  <option value="male">Macho</option>
+                  <option value="female">Hembra</option>
+                </Form.Select>
+
+                <Form.Text className="text-muted">
+                  {errors.petGender?.type === "required" && (
+                    <Alert variant="danger">
+                      Es obligatorio seleccionar el genero
                     </Alert>
                   )}
                 </Form.Text>
@@ -232,6 +306,17 @@ const NewPetForm = () => {
           </div>
         </Form>
       </div>
+
+      {/* Message in error case */}
+      {registerError &&
+        loadingQuery === false &&
+        registersuccessfully === false && (
+          <>
+            <br />
+            {testError("danger", registerErrorMessage)}
+            {/* {testError("danger", "peperoni")} */}
+          </>
+        )}
     </>
   );
 };
