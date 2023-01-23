@@ -20,7 +20,7 @@ const verifiedStoresPOST = async (req, res) => {
 };
 
 //Get store data by ID
-const storeInfoPOST = async (req, res) => {
+const storeInfoGET = async (req, res) => {
 	let { id } = req.params;
 
 	let storeByID = await getStoreById(id);
@@ -57,6 +57,6 @@ const storeUpdatePUT = async (req, res) => {
 module.exports = {
 	indexGET,
 	verifiedStoresPOST,
-	storeInfoPOST,
+	storeInfoGET,
 	storeUpdatePUT,
 };

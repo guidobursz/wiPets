@@ -1,6 +1,8 @@
 //import model
 const Pet = require("../db/models/Pet.js");
 
+const PetBreed = require("../db/models/PetBreed");
+
 const getAllPets = async () => {
 	let allPets = await Pet.findAll();
 	return allPets;

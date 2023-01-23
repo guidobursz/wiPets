@@ -7,6 +7,12 @@ const {
 	getPetsByUserId,
 } = require("../modelsControllers/petController");
 
+const { getAllPetTypes } = require("../modelsControllers/petTypeController");
+const {
+	getAllPetsBreeds,
+	getAllBreedsByTypeId,
+} = require("../modelsControllers/petBreedController");
+
 //handlers:
 // get all pets in DB
 const indexGET = async (req, res) => {
@@ -85,9 +91,57 @@ const getUsersPetsByUserId = async (req, res) => {
 	}
 };
 
+//For front use cases:
+//Get all pet types
+const GETAllTypes = async (req, res) => {
+	try {
+		let allPetTypes = await getAllPetTypes();
+		return res.status(200).json({ allPetTypes });
+	} catch (error) {
+		return res
+			.status(500)
+			.json({ error, errorMessage: "internal error trying query" });
+	}
+};
+//Get all breeds:
+const GETAllBreeds = async (req, res) => {
+	try {
+		let allPetsBreeds = await getAllPetsBreeds();
+		return res.status(200).json({ allPetsBreeds });
+	} catch (error) {
+		return res
+			.status(500)
+			.json({ error, errorMessage: "internal error trying query" });
+	}
+};
+
+//Get breeds by pet type id:
+const GETBreedsByPetTypeId = async (req, res) => {
+	let typeId = Number(req.params.typeId);
+	//Make conditional if there is no typeId param
+	if (!typeId) {
+		return res.status(400).json({
+			error: true,
+			errorMessage: "No typeId param",
+		});
+	}
+	//Make query
+	try {
+		let allPetsBreedsByTypeId = await getAllBreedsByTypeId(typeId);
+		return res.status(200).json({ allPetsBreedsByTypeId });
+	} catch (error) {
+		return res
+			.status(500)
+			.json({ error, errorMessage: "internal error trying query" });
+	}
+};
+
 module.exports = {
 	indexGET,
 	petInfoPOST,
 	newPetByOwnerPOST,
 	getUsersPetsByUserId,
+	GETAllTypes,
+	GETAllBreeds,
+	GETBreedsByPetTypeId,
 };

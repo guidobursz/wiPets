@@ -11,6 +11,9 @@ const {
 	petInfoPOST,
 	newPetByOwnerPOST,
 	getUsersPetsByUserId,
+	GETAllTypes,
+	GETAllBreeds,
+	GETBreedsByPetTypeId,
 } = require("../routesHandlers/petRouteHandlers");
 
 //Routes
@@ -25,6 +28,11 @@ router.post("/pet/:id", petInfoPOST);
 router.post("/pet", userJWT, newPetByOwnerPOST);
 //User sees only his pets.
 router.get("/user/:id", userJWT, getUsersPetsByUserId);
+
+//For front uses:
+router.get("/types", GETAllTypes);
+router.get("/breeds", GETAllBreeds);
+router.get("/:typeId/breeds", GETBreedsByPetTypeId);
 
 /* 
  Update pet data

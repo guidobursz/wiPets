@@ -4,18 +4,19 @@ const router = express.Router();
 const {
 	indexGET,
 	verifiedStoresPOST,
-	storeInfoPOST,
+	storeInfoGET,
 	storeUpdatePUT,
 } = require("../routesHandlers/storeRouteHandlers");
 
 //Routes
 // get all stores in DB
 router.get("/", indexGET);
+
 //Get all verified stores
 router.post("/verified", verifiedStoresPOST);
 
 //Get store data by ID
-router.post("/store/:id", storeInfoPOST);
+router.get("/store/:id", storeInfoGET);
 
 //Update store data
 router.put("/store/:id", storeUpdatePUT);

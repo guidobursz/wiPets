@@ -65,6 +65,12 @@ const getStoreById = async (id) => {
 	let storeById = await Store.findOne({
 		where: { id },
 		attributes: { exclude: ["password"] },
+		include: [
+			{
+				model: Service,
+				through: { attributes: [] },
+			},
+		],
 	});
 	return storeById;
 };
