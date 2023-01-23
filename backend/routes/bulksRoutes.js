@@ -8,6 +8,7 @@ const {
 	breedsGET,
 	petTypesGET,
 	statusGET,
+	serviceTypeGET,
 } = require("../routesHandlers/bulksRouteHandlers");
 
 //Routes
@@ -22,5 +23,7 @@ router.get("/pet-breeds", breedsGET);
 router.get("/pet-types", petTypesGET);
 
 router.get("/status", statusGET);
+
+router.get("/services", serviceTypeGET);
 
 module.exports = router;

@@ -5,6 +5,7 @@ const Pet = require("../db/models/Pet");
 const PetBreed = require("../db/models/PetBreed");
 const PetType = require("../db/models/PetType");
 const Status = require("../db/models/Status");
+const Service = require("../db/models/Service");
 
 //Create 5 users
 const fiveUsersGET = async (req, res) => {
@@ -180,9 +181,9 @@ const fivePetsGET = async (req, res) => {
 const breedsGET = async (req, res) => {
 	{
 		const PetBreeds = await PetBreed.bulkCreate([
-			{ name: "Affenpinscher" },
+			{ name: "Affenpinscher", PetTypeId: 1 },
 			{ name: "Airedale terrier" },
-			{ name: "Akita" },
+			{ name: "Akita", PetTypeId: 1 },
 			{ name: "Akita americano" },
 			{ name: "Alaskan Husky" },
 			{ name: "Alaskan malamute" },
@@ -195,7 +196,7 @@ const breedsGET = async (req, res) => {
 			{ name: "Australian Terrier" },
 			{ name: "Austrian Black & Tan Hound" },
 			{ name: "Azawakh" },
-			{ name: "Balkan Hound" },
+			{ name: "Balkan Hound", PetTypeId: 1 },
 			{ name: "Basenji" },
 			{ name: "Basset Alpino (Alpine Dachsbracke)" },
 			{ name: "Basset Artesiano Normando" },
@@ -209,18 +210,18 @@ const breedsGET = async (req, res) => {
 				name: "Basset Leonado de Bretaña (Basset fauve de Bretagne)",
 			},
 			{ name: "Bavarian Mountain Scenthound" },
-			{ name: "Beagle" },
+			{ name: "Beagle", PetTypeId: 1 },
 			{ name: "Beagle Harrier" },
 			{ name: "Beauceron" },
 			{ name: "Bedlington Terrier" },
 			{ name: "Bichon Boloñes" },
-			{ name: "Bichón Frisé" },
+			{ name: "Bichón Frisé", PetTypeId: 1 },
 			{ name: "Bichón Habanero" },
 			{ name: "Billy" },
 			{ name: "Black and Tan Coonhound" },
 			{ name: "Bloodhound (Sabueso de San Huberto)" },
 			{ name: "Bobtail" },
-			{ name: "Boerboel" },
+			{ name: "Boerboel", PetTypeId: 1 },
 			{ name: "Border Collie" },
 			{ name: "Border terrier" },
 			{ name: "Borzoi" },
@@ -228,23 +229,23 @@ const breedsGET = async (req, res) => {
 			{ name: "Boston terrier" },
 			{ name: "Bouvier des Flandres" },
 			{ name: "Boxer" },
-			{ name: "Boyero de Appenzell" },
-			{ name: "Boyero de Australia" },
-			{ name: "Boyero de Entlebuch" },
-			{ name: "Boyero de las Ardenas" },
-			{ name: "Boyero de Montaña Bernes" },
-			{ name: "Braco Alemán de pelo corto" },
-			{ name: "Braco Alemán de pelo duro" },
-			{ name: "Braco de Ariege" },
-			{ name: "Braco de Auvernia" },
-			{ name: "Braco de Bourbonnais" },
-			{ name: "Braco de Saint Germain" },
+			{ name: "Boyero de Appenzell", PetTypeId: 1 },
+			{ name: "Boyero de Australia", PetTypeId: 1 },
+			{ name: "Boyero de Entlebuch", PetTypeId: 1 },
+			{ name: "Boyero de las Ardenas", PetTypeId: 1 },
+			{ name: "Boyero de Montaña Bernes", PetTypeId: 1 },
+			{ name: "Braco Alemán de pelo corto", PetTypeId: 1 },
+			{ name: "Braco Alemán de pelo duro", PetTypeId: 1 },
+			{ name: "Braco de Ariege", PetTypeId: 1 },
+			{ name: "Braco de Auvernia", PetTypeId: 1 },
+			{ name: "Braco de Bourbonnais", PetTypeId: 1 },
+			{ name: "Braco de Saint Germain", PetTypeId: 1 },
 			{ name: "Braco Dupuy" },
-			{ name: "Braco Francés" },
-			{ name: "Braco Italiano" },
+			{ name: "Braco Francés", PetTypeId: 1 },
+			{ name: "Braco Italiano", PetTypeId: 1 },
 			{ name: "Broholmer" },
-			{ name: "Buhund Noruego" },
-			{ name: "Bull terrier" },
+			{ name: "Buhund Noruego", PetTypeId: 1 },
+			{ name: "Bull terrier", PetTypeId: 1 },
 			{ name: "Bulldog americano" },
 			{ name: "Bulldog inglés" },
 			{ name: "Bulldog francés" },
@@ -520,6 +521,32 @@ const statusGET = async (req, res) => {
 	res.status(201).json({ added: "ok", bulkStatus });
 };
 
+//create categories
+const serviceTypeGET = async (req, res) => {
+	const bulkServices = await Service.bulkCreate([
+		{
+			description: "Vet",
+		},
+		{
+			description: "Washer",
+		},
+		{
+			description: "Hair",
+		},
+		{
+			description: "Food",
+		},
+		{
+			description: "Walker",
+		},
+		{
+			description: "Daycare",
+		},
+	]);
+
+	res.status(201).json({ added: "ok", bulkServices });
+};
+
 module.exports = {
 	fiveUsersGET,
 	fiveStoresGET,
@@ -527,4 +554,5 @@ module.exports = {
 	petTypesGET,
 	statusGET,
 	breedsGET,
+	serviceTypeGET,
 };

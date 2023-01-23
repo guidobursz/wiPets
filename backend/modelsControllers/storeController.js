@@ -1,5 +1,6 @@
 //import model
 const Store = require("../db/models/Store");
+const Service = require("../db/models/Service");
 
 //Imp sequelzie helper
 const { Op } = require("sequelize");
@@ -9,7 +10,7 @@ const getAllStores = async () => {
 	return allStores;
 };
 
-const getAllVerifiedStores = async (words) => {
+const getAllVerifiedStoresORIGINAL = async (words) => {
 	//words will be = [''] or max = ['','','']
 	//let words = [];
 	let [w1 = "nono", w2 = "nono", w3 = "nono"] = words;
@@ -32,9 +33,31 @@ const getAllVerifiedStores = async (words) => {
 	});
 	return allVerifiedStores;
 };
+//back up using fight now in frontend
+const getAllVerifiedStores = async (words) => {
+	let allVerifiedStores = await Store.findAll({
+		where: {
+			verified: true,
+		},
+		include: [
+			{
+				model: Service,
+				through: { attributes: [] },
+			},
+		],
+	});
+	return allVerifiedStores;
+};
 
 const createStore = async (data) => {
-	let newStore = await Store.create(data);
+	let newStore = await Store.create(data, {
+		include: [
+			{
+				model: Service,
+				through: { attributes: [] },
+			},
+		],
+	});
 	return newStore;
 };
 

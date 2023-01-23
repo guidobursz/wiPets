@@ -15,16 +15,7 @@ const indexGET = async (req, res) => {
 };
 
 const verifiedStoresPOST = async (req, res) => {
-	// queryString must be an array
-	let queryString = req.body.filters;
-	// console.log("string : ", queryString);
-
-	//must sent an array as param
-	let queryArray = queryString.split(" ");
-	// console.log("query array: ", queryArray);
-	//must sent an array as param
-
-	let allVStores = await getAllVerifiedStores(queryArray);
+	let allVStores = await getAllVerifiedStores();
 	return res.status(200).json({ allVStores });
 };
 

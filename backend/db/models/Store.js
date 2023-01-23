@@ -8,10 +8,6 @@ Store.init(
 			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		type: {
-			type: DataTypes.STRING,
-			allowNull: false,
-		},
 		email: {
 			type: DataTypes.STRING,
 			allowNull: false,
@@ -27,27 +23,26 @@ Store.init(
 		},
 		address: {
 			type: DataTypes.STRING,
-			defaultValue: "Waiting",
+			allowNull: false,
 		},
 		address_number: {
 			type: DataTypes.STRING,
-			defaultValue: "waiting",
+			allowNull: false,
 		},
 		apartment: {
 			type: DataTypes.STRING,
-			defaultValue: "waiting",
 		},
 		province: {
 			type: DataTypes.STRING,
-			defaultValue: "waiting",
+			allowNull: false,
 		},
 		barrio: {
 			type: DataTypes.STRING,
-			defaultValue: "pepe",
+			allowNull: false,
 		},
 		zip: {
 			type: DataTypes.STRING,
-			defaultValue: "waiting",
+			allowNull: false,
 		},
 		verified: {
 			type: DataTypes.BOOLEAN,
@@ -58,6 +53,7 @@ Store.init(
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
 		modelName: "Store", // We need to choose the model name
+		tableName: "stores",
 		paranoid: true,
 	}
 );

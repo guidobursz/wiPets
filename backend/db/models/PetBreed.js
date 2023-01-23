@@ -14,7 +14,7 @@ PetBreed.init(
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
 		modelName: "PetBreed", // We need to choose the model name
-		tableName: "PetBreed",
+		tableName: "pet_breeds",
 		timestamps: false,
 	}
 );

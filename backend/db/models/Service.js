@@ -1,32 +1,24 @@
 const { Sequelize, DataTypes, Model } = require("sequelize");
 const { sequelize } = require("../connection");
 
-class Appointment extends Model {}
-Appointment.init(
+class Service extends Model {}
+Service.init(
 	{
-		date: {
-			type: DataTypes.DATE,
-			allowNull: false,
-		},
-		time: {
-			type: DataTypes.TIME,
-			allowNull: false,
-		},
-		comment: {
+		description: {
 			type: DataTypes.STRING,
 		},
 	},
 	{
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
-		modelName: "Appointment", // We need to choose the model name
-		tableName: "appointment",
-		paranoid: true,
+		modelName: "Service", // We need to choose the model name
+		tableName: "service_list",
+		timestamps: false,
 	}
 );
 
 //Export Model:
-module.exports = Appointment;
+module.exports = Service;
 
 // the defined model is the class itself
 // console.log(User === sequelize.models.User); // true

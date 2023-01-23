@@ -30,6 +30,7 @@ Pet.init(
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
 		modelName: "Pet", // We need to choose the model name
+		tableName: "pets",
 		paranoid: true,
 	}
 );

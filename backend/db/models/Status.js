@@ -12,7 +12,7 @@ Status.init(
 		// Other model options go here
 		sequelize, // We need to pass the connection instance
 		modelName: "Status", // We need to choose the model name
-		tableName: "StatusList",
+		tableName: "status_list",
 		timestamps: false,
 	}
 );

@@ -13,6 +13,8 @@ const { signToken7Days } = require("../utils/jwtHelper.js");
 
 //Models
 const User = require("../db/models/User.js");
+const Store = require("../db/models/Store");
+const Service = require("../db/models/Service");
 
 //Handlers:
 //User register
@@ -97,7 +99,7 @@ const userLoginPOST = async (req, res) => {
 const storeRegisterPost = async (req, res) => {
 	let {
 		name,
-		type,
+		service_types, // [1,2]
 		email,
 		password,
 		phone_number,
@@ -119,10 +121,10 @@ const storeRegisterPost = async (req, res) => {
 		//1) hash password:
 		//hash password:
 		let passwordHash = await encrypt(password);
+
 		//2) create obj with data:
 		let dataObj = {
 			name,
-			type,
 			email,
 			password: passwordHash,
 			verified: false,
@@ -138,8 +140,20 @@ const storeRegisterPost = async (req, res) => {
 		try {
 			//let newStore = dataObj;
 			let newStore = await createStore(dataObj);
+
+			//insert the services types with the related join table: store_service
+			await newStore.addServices(service_types);
+
 			res.status(201).json({ newStore });
-		} catch (error) {}
+		} catch (error) {
+			res
+				.status(500)
+				.json({
+					Error: true,
+					errorMessage: "Error al intentar crear tienda",
+					error,
+				});
+		}
 	}
 };
 //Store login
