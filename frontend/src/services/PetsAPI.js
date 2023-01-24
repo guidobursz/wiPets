@@ -28,3 +28,31 @@ export const newPetByUser = async (data, token) => {
   return "okokokokoko";
   //http://localhost:3005/pets/pet/
 };
+
+export const getPetTypes = async (token) => {
+  let queryUrl = `${baseUrl}/pets/types`;
+
+  //make get query;
+  let petTypes = await axios.get(queryUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return petTypes;
+};
+
+//
+export const getBreedsByPetId = async (typeId, token) => {
+  let queryUrl = `${baseUrl}/pets/${typeId}/breeds`;
+
+  //make get query:
+
+  let petBreeds = await axios.get(queryUrl, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return petBreeds;
+};

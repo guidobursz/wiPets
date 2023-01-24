@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 //Import queries
-import { newPetByUser } from "../../services/PetsAPI";
+import {
+  newPetByUser,
+  getPetTypes,
+  getBreedsByPetId,
+} from "../../services/PetsAPI";
 
 //import components
 import CustomAlert from "../CustomAlert";
@@ -32,9 +36,59 @@ const NewPetForm = ({ idata }) => {
   const [registerError, setRegisterError] = useState(false);
   const [registerErrorMessage, setRegisterMessage] = useState("");
 
+  //states for options (pet type and breed types depending on pet type)
+  const [petTypesOpts, setPetTypesOpts] = useState(["Cargando..."]);
+  const [petBreedsOpts, setPetBreedsOpts] = useState(["Seleccione un animal"]);
+
+  //useEffect for laoding petTypes, onMount;
+  useEffect(() => {
+    //Fetch function to get all pet types from DB
+    const getPetTypesF = async () => {
+      try {
+        let allPetTypes = await getPetTypes(tokenJ);
+        //console.log(allPetTypes.data.allPetTypes);
+        setPetTypesOpts(allPetTypes.data.allPetTypes);
+        //console.log(petTypes);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    //Run the query
+    getPetTypesF();
+  }, []);
+
+  //Function to update the breeds type
+  const handleChangePetType = async (e) => {
+    // get pet type id:
+    let petTypeIdSelected = e.target.value;
+    // console.log(typeof petTypeIdSelected);
+    // console.log(petTypeIdSelected);
+    if (
+      petTypeIdSelected === null ||
+      petTypeIdSelected === undefined ||
+      petTypeIdSelected === ""
+    ) {
+      return setPetBreedsOpts(["Seleccione un animal"]);
+    } else {
+      //make the query for getting breeds available
+      try {
+        let breedsAvailable = await getBreedsByPetId(petTypeIdSelected, tokenJ);
+        // console.log(breedsAvailable.data.allPetsBreedsByTypeId);
+        let breedsArray = breedsAvailable.data.allPetsBreedsByTypeId;
+        // push to array the N.N. available:
+        breedsArray.push({ id: 999, name: "N.N." });
+        // console.log(breedsArray);
+        setPetBreedsOpts(breedsArray);
+      } catch (error) {
+        console.log(error);
+        setPetBreedsOpts(["Error, por favor recargar pagina."]);
+      }
+    }
+  };
+
   //Handle submit:
   const onSubmit = async (data) => {
-    // console.log(data);
+    console.log(data);
     //first loadingQuery true;
     setLoadingQuery(true);
 
@@ -68,7 +122,7 @@ const NewPetForm = ({ idata }) => {
     try {
       //try insert query:
       let newPet = await newPetByUser(dataQuery, tokenJ);
-      console.log(newPet);
+      // console.log(newPet);
       //make register successfully to true;
       setRegisterSuccessfully(true);
       //set loading to false
@@ -96,7 +150,7 @@ const NewPetForm = ({ idata }) => {
 
   return (
     <>
-      <div>Titulo dentro del form file</div>
+      <div>Div dentro del form file</div>
 
       {/* div for center spinner */}
       <div className="mx-auto">
@@ -160,7 +214,7 @@ const NewPetForm = ({ idata }) => {
                 <Form.Text className="text-muted">
                   {errors.age?.type === "required" && (
                     <Alert variant="danger">
-                      Es obligatorio ingresar la edad{" "}
+                      Es obligatorio ingresar la edad
                     </Alert>
                   )}
                 </Form.Text>
@@ -178,14 +232,30 @@ const NewPetForm = ({ idata }) => {
                 <Form.Select
                   type="select"
                   {...register("petType", { required: true })}
+                  onChange={handleChangePetType}
                 >
                   <option value="">Elige clase...</option>
-                  <option value="1">Perro</option>
-                  <option value="2">Gato</option>
+                  {/* Make the optios via the fetch*/}
+
+                  {petTypesOpts.length >= 4 ? (
+                    petTypesOpts.map((el, idx) => {
+                      <option key={el + idx} value={el.id}>
+                        {el.name}
+                      </option>;
+                    })
+                  ) : (
+                    <option value="">Recargar pagina</option>
+                  )}
+
+                  {petTypesOpts.map((el, idx) => (
+                    <option key={el + idx} value={el.id}>
+                      {el.name}
+                    </option>
+                  ))}
                 </Form.Select>
 
                 <Form.Text className="text-muted">
-                  {errors.age?.type === "required" && (
+                  {errors.petType?.type === "required" && (
                     <Alert variant="danger">
                       Es obligatorio seleccionar la clase de animal
                     </Alert>
@@ -203,8 +273,15 @@ const NewPetForm = ({ idata }) => {
                   {...register("petBreed", { required: true })}
                 >
                   <option value="">Elige raza...</option>
-                  <option value="1">r1</option>
-                  <option value="2">r2</option>
+                  {petBreedsOpts.length < 1 ? (
+                    <option value="">Seleccione un animal</option>
+                  ) : (
+                    petBreedsOpts.map((el, idx) => (
+                      <option key={el + idx} value={el.id}>
+                        {el.name}
+                      </option>
+                    ))
+                  )}
                 </Form.Select>
 
                 <Form.Text className="text-muted">
