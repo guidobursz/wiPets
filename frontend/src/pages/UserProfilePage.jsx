@@ -38,6 +38,7 @@ const UserProfilePage = () => {
 	//Get user info for UserProfileDisplay, users pets for UserPetsDisplay
 	const [loadingUserInfo, setLoadingUserInfo] = useState(true);
 	const [userData, setUserData] = useState({});
+	//userBirthday will be = [day,month,year, complete, string]
 	const [userPetsData, setUserPetsData] = useState({});
 	//const [userAppointmentsData, setUserAppointmentsData] = useState({});
 
@@ -50,13 +51,15 @@ const UserProfilePage = () => {
 				let userDataFetch = await getUserById(userId, token);
 				// console.log(userDataFetch.data.userByID);
 				setUserData(userDataFetch.data.userByID);
+
+				//Finish handling date
 				setLoadingUserInfo(false);
 			} catch (error) {
 				console.log(error);
 			}
 		};
 		getUserData(userId, tokenJ);
-	}, []);
+	}, [tokenJ]);
 
 	//Get users appoints.
 	const [loadingUserAppoints, setLoadingUsersAppoints] = useState(false);

@@ -1,5 +1,8 @@
 import React from "react";
 
+//import utils
+import { dateConverter } from "../../tools/dateHelper";
+
 //import components
 import SpinnerBootstrap from "../SpinnerBootstrap";
 
@@ -10,6 +13,7 @@ import Col from "react-bootstrap/Col";
 
 const UserProfileDisplay = ({ loading, user }) => {
 	//user is a obj with all props
+	let userBD = dateConverter(user.birthday);
 
 	return (
 		<>
@@ -52,7 +56,7 @@ const UserProfileDisplay = ({ loading, user }) => {
 									style={{ height: "100%" }}
 									className="d-flex flex-column justify-content-center"
 								>
-									<div class="">
+									<div className="">
 										<Row className="mt-2 mb-2">
 											<Col>
 												<div>{user.first_name}</div>
@@ -75,7 +79,7 @@ const UserProfileDisplay = ({ loading, user }) => {
 									<div>
 										<Row className="mt-2 mb-2">
 											<Col>
-												<div>{user.birthday}</div>
+												<div>{userBD[3]}</div>
 											</Col>
 										</Row>
 									</div>

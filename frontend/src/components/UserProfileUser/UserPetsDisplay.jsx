@@ -101,7 +101,7 @@ const UserPetsDisplay = () => {
                     className="d-flex justify-content-end"
                     style={{ height: "39px" }}
                   >
-                    <BsFillArrowLeftCircleFill
+                    <BsFillArrowDownCircleFill
                       size={30}
                       onClick={openFilters}
                     />

@@ -23,7 +23,7 @@ export const newPetByUser = async (data, token) => {
       Authorization: `Bearer ${token}`,
     },
   });
-  console.log(newPet);
+  // console.log(newPet);
   // return newPet;
   return "okokokokoko";
   //http://localhost:3005/pets/pet/

@@ -28,7 +28,7 @@ const NewPetPage = () => {
     <div>
       <Navbar />
       <Container>
-        <h2>Testing</h2>
+        <h2>Agrega a tu mascota a la web!</h2>
         <br />
         <NewPetForm idata={{ userId, tokenJ }} />
       </Container>
