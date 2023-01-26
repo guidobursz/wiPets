@@ -33,7 +33,8 @@ router.use("/appointments", require("./appointmentsRoutes"));
 router.use("/users", require("./usersRoutes"));
 router.use("/stores", require("./storesRoutes"));
 router.use("/pets", require("./petsRoutes"));
-
+//routes for general, like get services o other
+router.use("/general", require("./generalRoutes"));
 //routes for bulk inserts, for dummy examples:
 router.use("/bulks", require("./bulksRoutes"));
 
