@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 //Import queries
-import { storeRegister } from "../services/AuthAPI";
+import { storeRegister } from "../../../services/AuthAPI";
+import { getServices } from "../../../services/GeneralAPI";
 
 //import components
-import CustomAlert from "./CustomAlert";
-import SpinnerBootstrap from "./SpinnerBootstrap";
+import CustomAlert from "../../CustomAlert";
+import SpinnerBootstrap from "../../SpinnerBootstrap";
 
 //Bootstrap styles
 import Button from "react-bootstrap/Button";
@@ -25,11 +26,27 @@ const RegisterStoreForm = () => {
 
   //States:
   const [loadingQuery, setLoadingQuery] = useState(false);
+
+  const [servicesOpts, setServicesOpts] = useState([]);
   //successfully register
   const [registersuccessfully, setRegisterSuccessfully] = useState(false);
   //In case of an error
   const [registerError, setRegisterError] = useState(false);
   const [registerErrorMessage, setRegisterMessage] = useState(false);
+
+  //Handle service options from db
+  //make useEffect to fetch options
+  useEffect(() => {
+    //create fetch functionn
+    const fetchServices = async () => {
+      let axiosServ = await getServices();
+      let servicesAv = axiosServ.data.servicesAv;
+      // console.log(servicesAv);
+      setServicesOpts(servicesAv);
+    };
+
+    fetchServices();
+  }, []);
 
   //Handle options for province and hood:
   //handle localidades for province onchange
@@ -54,24 +71,12 @@ const RegisterStoreForm = () => {
   //Handle submit:
   const onSubmit = async (data) => {
     //name,type,email,password,phone_number,address,adress_number,apartment,province,barrio,zip
-    //console.log(data);
-
-    //Create realType string for register query
-    let realType = "";
-    if (data.lavadero === true) {
-      realType += "washer ";
-    }
-    if (data.peluqueria === true) {
-      realType += "hair ";
-    }
-    if (data.veterinaria === true) {
-      realType += "vet ";
-    }
+    // console.log(data);
 
     //Create Query:
     let dataQuery = {
       name: data.name,
-      type: realType,
+      service_types: data.services,
       email: data.email,
       password: data.password,
       phone_number: data.telefono,
@@ -84,6 +89,7 @@ const RegisterStoreForm = () => {
     };
 
     try {
+      // console.log("pre query dataobj: ", dataQuery);
       let registerStoreQuery = await storeRegister(dataQuery);
 
       //After insert:
@@ -171,7 +177,7 @@ const RegisterStoreForm = () => {
                 {...register("name", { required: true })}
               />
               <Form.Text className="text-muted">
-                {errors.email?.type === "required" && (
+                {errors.name?.type === "required" && (
                   <Alert variant="danger">
                     Es obligatorio escribir el correo
                   </Alert>
@@ -183,21 +189,28 @@ const RegisterStoreForm = () => {
             <Form.Group className="mb-3" controlId="formBasicServType">
               <Form.Label>Tilde los servicios que ofrece</Form.Label>
 
-              <Form.Check
-                type="checkbox"
-                label="Veterinaria"
-                {...register("veterinaria")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Peluqueria"
-                {...register("peluqueria")}
-              />
-              <Form.Check
-                type="checkbox"
-                label="Lavadero"
-                {...register("lavadero")}
-              />
+              {/* display fetched options */}
+              {servicesOpts.length > 0 ? (
+                servicesOpts.map((el) => (
+                  <Form.Check
+                    key={el.id}
+                    type="checkbox"
+                    label={el.description}
+                    value={Number(el.id)}
+                    {...register("services", { required: true })}
+                  />
+                ))
+              ) : (
+                <h6>Por favor refrescar la pagina para ver las opciones</h6>
+              )}
+
+              <Form.Text>
+                {errors.services?.type === "required" && (
+                  <Alert variant="danger">
+                    Es obligatorio seleccionar un/varios servicios
+                  </Alert>
+                )}
+              </Form.Text>
             </Form.Group>
 
             {/* form group for email */}
@@ -352,7 +365,7 @@ const RegisterStoreForm = () => {
                       required: true,
                     })}
                   >
-                    <option>Elige...</option>
+                    <option value="">Elige...</option>
                     <option value="Buenos Aires">Buenos Aires</option>
                     <option value="Catamarca">Catamarca</option>
                     <option value="Ciudad Autónoma de Buenos Aires">
@@ -405,7 +418,7 @@ const RegisterStoreForm = () => {
                       required: true,
                     })}
                   >
-                    <option>Elige...</option>
+                    <option value="">Elige...</option>
                     {localidades.map((el) => (
                       <option
                         key={

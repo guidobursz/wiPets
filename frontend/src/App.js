@@ -11,11 +11,13 @@ import { AuthProvider } from "./context/AuthContex";
 //Import pages:
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/LoginPage";
-import RegisterStorePage from "./pages/RegisterStorePage";
+import RegisterStorePage from "./pages/storePages/RegisterStorePage";
 import RegisterUserPage from "./pages/RegisterUserPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserReservesPage from "./pages/UserReservesPage";
 import NewPetPage from "./pages/userPages/NewPetPage.jsx";
+//store pages
+import StoreProfilePage from "./pages/storePages/StoreProfilePage";
 
 //Main app
 function App() {
@@ -33,6 +35,8 @@ function App() {
           <Route path="/user/:id" element={<UserProfilePage />} />
           <Route path="/user/:id/reserves" element={<UserReservesPage />} />
           <Route path="/user/:id/pets/new" element={<NewPetPage />} />
+          {/* store pages */}
+          <Route path="/store/:id" element={<StoreProfilePage />} />
           {/* 404 page */}
           <Route path="*" element={<h1> Page does not exist </h1>} />
         </Routes>

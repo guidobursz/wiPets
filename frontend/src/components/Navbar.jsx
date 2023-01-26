@@ -86,24 +86,32 @@ function CollapsibleExample() {
         <Container>
           <Navbar.Brand href="/">WiPet - {accInfo.accType}</Navbar.Brand>
           <Nav>
-            <Nav.Link href="#features">StoreName</Nav.Link>
+            <Nav.Link as={Link} to={`/store/${accInfo.accId}`}>
+              {accInfo.name}
+            </Nav.Link>
           </Nav>
-          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-          <Navbar.Collapse id="responsive-navbar-nav">
-            <Nav className="me-auto"></Nav>
-            <Nav>
-              <NavDropdown title="FotitoPerfil" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">Perfil</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">Reservas</NavDropdown.Item>
 
-                <hr />
-                <NavDropdown.Item onClick={makeLogOff}>
-                  Cerrar Sesion
-                </NavDropdown.Item>
-                {/* <NavDropdown.Divider /> */}
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
+          <Nav>
+            <NavDropdown title="FotitoPerfil" id="collasible-nav-dropdown">
+              <NavDropdown.Item
+                as={Link}
+                to={`/${accInfo.accType}/${accInfo.accId}`}
+              >
+                Mi Perfil
+              </NavDropdown.Item>
+              <NavDropdown.Item
+                as={Link}
+                to={`/${accInfo.accType}/${accInfo.accId}/reserves`}
+              >
+                Mis Reservas
+              </NavDropdown.Item>
+              <hr />
+              <NavDropdown.Item onClick={makeLogOff}>
+                Cerrar Sesion
+              </NavDropdown.Item>
+              {/* <NavDropdown.Divider /> */}
+            </NavDropdown>
+          </Nav>
         </Container>
       </Navbar>
     );
