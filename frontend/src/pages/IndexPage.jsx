@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
+import { POSTVerifiedStores } from "../services/StoresAPI";
 //Bootstrap
 import Container from "react-bootstrap/Container";
 
@@ -7,10 +8,42 @@ import Container from "react-bootstrap/Container";
 import Navbar from "../components/Navbar";
 import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
 import TableStoresHome from "../components/indexUse/TableStoresHome";
+import TableLayout from "../components/indexUse/TableLayout";
+import FilterInputsTable from "../components/indexUse/FilterInputsTable";
 // import TESTbtnCookie from "../components/TESTbtnCookie";
 import Footer from "../components/Footer";
 
-const indexPage = () => {
+const IndexPage = () => {
+  //Fetch data logic
+  //initial value for queryParams
+  let initialParams = {
+    storeName: "",
+    services: [],
+  };
+  //states
+  const [loadingQuery, setLoadingQuery] = useState(true);
+  const [storesList, setStoresList] = useState();
+  const [queryParams, setQueryParams] = useState(initialParams);
+
+  useEffect(() => {
+    setLoadingQuery(true);
+
+    //fetch function:
+    const getStores = async (queryParams) => {
+      try {
+        let fetchStores = await POSTVerifiedStores(queryParams);
+        //console.log(fetchStores);
+        setStoresList(fetchStores.data.allVStores);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getStores(queryParams);
+
+    //setLoading false
+    setLoadingQuery(false);
+  }, [queryParams]);
+
   return (
     <div>
       <Navbar />
@@ -19,20 +52,22 @@ const indexPage = () => {
         <h1> mas texto?</h1>
         <br />
         <hr />
-        <TableStoresHome />
+        {/* <TableStoresHome />*/}
         <br />
+        <hr />
+        <h6>new</h6>
+        <FilterInputsTable setQueryParams={setQueryParams} />
+        <TableLayout data={{ loadingQuery, storesList }} />
         <hr />
         <h3>Mapa? mostrando las tiendas registradas?</h3>
         <hr />
         <StoreRegisterOpt />
         <br />
-        <br />
-
-        {/* <TESTbtnCookie /> */}
+        <br />e{/* <TESTbtnCookie /> */}
       </Container>
       <Footer></Footer>
     </div>
   );
 };
 
-export default indexPage;
+export default IndexPage;

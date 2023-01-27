@@ -18,6 +18,7 @@ import UserReservesPage from "./pages/UserReservesPage";
 import NewPetPage from "./pages/userPages/NewPetPage.jsx";
 //store pages
 import StoreProfilePage from "./pages/storePages/StoreProfilePage";
+import StoreReservesPages from "./pages/storePages/StoreReservesPage";
 
 //Main app
 function App() {
@@ -37,6 +38,7 @@ function App() {
           <Route path="/user/:id/pets/new" element={<NewPetPage />} />
           {/* store pages */}
           <Route path="/store/:id" element={<StoreProfilePage />} />
+          <Route path="/store/:id/reserves" element={<StoreReservesPages />} />
           {/* 404 page */}
           <Route path="*" element={<h1> Page does not exist </h1>} />
         </Routes>
