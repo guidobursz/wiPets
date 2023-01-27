@@ -14,9 +14,14 @@ import Alert from "react-bootstrap/Alert";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 
-const InfoLayout = ({ storeInfo }) => {
-  console.log(storeInfo);
-  let loading = false;
+const InfoLayout = ({ loading, storeInfo, storeServices }) => {
+  //Having trouble sending and trying to get services with the storeInfo obj
+  // console.log(storeInfo);
+  // so i get here the store services array by another param
+  // console.log(storeServices);
+  // console.log(storeInfo.Services);
+  // console.log(loading);
+  // let loading = false;
   return (
     <>
       {/* div for center spinner */}
@@ -82,9 +87,18 @@ const InfoLayout = ({ storeInfo }) => {
                         </Col>
                       </Row>
                       <Row>
-                        {storeInfo.Services.map((el) => (
+                        {storeServices.length >= 1 ? (
+                          storeInfo.Services.map((el) => (
+                            <Col key={el.id}>{el.description}</Col>
+                          ))
+                        ) : (
+                          <Col>Error al cargar</Col>
+                        )}
+                        {/*
+                          storeInfo.Services.map((el) => (
                           <Col>{el.description}</Col>
-                        ))}
+                        ))
+                        */}
                       </Row>
                     </Row>
                   </div>

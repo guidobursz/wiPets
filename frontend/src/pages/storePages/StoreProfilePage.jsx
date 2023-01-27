@@ -28,15 +28,23 @@ const StoreProfilePage = () => {
 
   //States
   const [storeInfo, setStoreInfo] = useState([]);
-
+  const [storeServices, setStoreServices] = useState([]);
+  const [loadingQuery, setLoadingQuery] = useState(false);
   //use effect to get store info
   useEffect(() => {
     //
     const getStoreData = async () => {
+      setLoadingQuery(true);
       let storeDataFetch = await getStoreInfoById(storeId, tokenJ);
       let storeData = storeDataFetch.data.storeByID;
       // console.log(storeData);
       setStoreInfo(storeData);
+      if (storeData.Services.length > 0) {
+        setStoreServices(storeData.Services);
+      } else {
+        setStoreServices(["No se pudo realizar la busqueda"]);
+      }
+      setLoadingQuery(false);
     };
     getStoreData();
   }, [storeId, tokenJ]);
@@ -45,7 +53,11 @@ const StoreProfilePage = () => {
     <div>
       <Navbar />
       <Container>
-        <InfoLayout storeInfo={storeInfo} />
+        <InfoLayout
+          loading={loadingQuery}
+          storeInfo={storeInfo}
+          storeServices={storeServices}
+        />
         <hr />
         <h3> Un mapita viendo donde se ve la tienda?</h3>
       </Container>
