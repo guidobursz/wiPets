@@ -34,14 +34,23 @@ const getAllVerifiedStoresORIGINAL = async (words) => {
 	return allVerifiedStores;
 };
 //back up using fight now in frontend
-const getAllVerifiedStores = async (words) => {
+const getAllVerifiedStores = async (filters) => {
+	//filters will be: { storeName: 'loka 2', services: [ '1', '2', '3' ] }
 	let allVerifiedStores = await Store.findAll({
+		attributes: ["name", "province", "barrio"],
 		where: {
+			name: {
+				[Op.substring]: filters.storeName,
+			},
 			verified: true,
 		},
 		include: [
 			{
 				model: Service,
+				where: {
+					id: filters.services,
+				},
+				attributes: ["id", "description"],
 				through: { attributes: [] },
 			},
 		],

@@ -15,7 +15,16 @@ const indexGET = async (req, res) => {
 };
 
 const verifiedStoresPOST = async (req, res) => {
-	let allVStores = await getAllVerifiedStores();
+	// console.log(req.body);
+
+	let filters = req.body;
+	if (filters.services.length === 0) {
+		filters.services = [1, 2, 3, 4];
+	}
+	console.log("filters:", filters);
+	//{ storeName: 'loka 2', services: [ '1', '2', '3' ] }
+
+	let allVStores = await getAllVerifiedStores(filters);
 	return res.status(200).json({ allVStores });
 };
 
