@@ -7,7 +7,6 @@ import Container from "react-bootstrap/Container";
 //Import Components
 import Navbar from "../components/Navbar";
 import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
-import TableStoresHome from "../components/indexUse/TableStoresHome";
 import TableLayout from "../components/indexUse/TableLayout";
 import FilterInputsTable from "../components/indexUse/FilterInputsTable";
 // import TESTbtnCookie from "../components/TESTbtnCookie";
@@ -19,6 +18,8 @@ const IndexPage = () => {
   let initialParams = {
     storeName: "",
     services: [],
+    province: "",
+    barrio: "",
   };
   //states
   const [loadingQuery, setLoadingQuery] = useState(true);
@@ -48,14 +49,8 @@ const IndexPage = () => {
     <div>
       <Navbar />
       <Container>
-        <h1> Titulo? </h1>
-        <h1> mas texto?</h1>
-        <br />
+        <h1> Bienvenidos a WiPet! </h1>
         <hr />
-        {/* <TableStoresHome />*/}
-        <br />
-        <hr />
-        <h6>new</h6>
         <FilterInputsTable setQueryParams={setQueryParams} />
         <TableLayout data={{ loadingQuery, storesList }} />
         <hr />
@@ -63,7 +58,6 @@ const IndexPage = () => {
         <hr />
         <StoreRegisterOpt />
         <br />
-        <br />e{/* <TESTbtnCookie /> */}
       </Container>
       <Footer></Footer>
     </div>

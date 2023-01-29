@@ -9,7 +9,7 @@ import SpinnerBootstrap from "../SpinnerBootstrap";
 //
 
 const TableLayout = ({ data }) => {
-  console.log(data);
+  // console.log(data);
 
   if (data.storesList === undefined) {
     return (

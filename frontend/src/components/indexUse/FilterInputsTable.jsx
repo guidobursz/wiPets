@@ -27,10 +27,34 @@ const FilterInputsTable = ({ setQueryParams }) => {
   };
   //End open/close
 
+  //Handling barrio opts
+
+  const [localidades, setLocalidades] = useState(["Elige provincia"]);
+  const proviceOnChange = async (event) => {
+    //name selected: event.target.value
+    // create query for getting options:
+
+    let localidadesOptRaw = await fetch(
+      `https://apis.datos.gob.ar/georef/api/localidades?provincia=${event.target.value}&campos=nombre&max=1000`
+    );
+    let localidadesOpt = await localidadesOptRaw.json().then(function (data) {
+      let localidadesArray = data.localidades; //array
+      let localidadesNames = localidadesArray.map((el) => el.nombre);
+
+      //console.log(localidadesNames);
+      setLocalidades(localidadesNames);
+    });
+    //setLocalidades(localidadesOpt.localidades);
+  };
+
   //Handle submit
   const onSubmit = async (data) => {
-    // console.log(data);
-    let query = { storeName: data.storeName };
+    console.log(data);
+    let query = {
+      storeName: data.storeName,
+      province: data.province,
+      barrio: data.barrio,
+    };
     if (data.services === false) {
       query.services = [];
     } else {
@@ -150,6 +174,94 @@ const FilterInputsTable = ({ setQueryParams }) => {
                           />
                         </div>
                       </div>
+                    </Form.Group>
+                  </Col>
+                </Row>
+                <Row>
+                  <Col>
+                    <Form.Group
+                      className="mb-3"
+                      onChange={proviceOnChange}
+                      controlId="formBasicBarrio"
+                    >
+                      <div class="d-flex justify-content-center">
+                        <div>
+                          <Form.Label>
+                            <u>
+                              <i>
+                                <b>Provincia</b>
+                              </i>
+                            </u>
+                          </Form.Label>
+                        </div>
+                      </div>
+                      <Form.Select {...register("province")}>
+                        <option value="">Elige...</option>
+                        <option value="Buenos Aires">Buenos Aires</option>
+                        <option value="Catamarca">Catamarca</option>
+                        <option value="Ciudad Autónoma de Buenos Aires">
+                          Ciudad Autónoma de Buenos Aires
+                        </option>
+                        <option value="Chaco">Chaco</option>
+                        <option value="Chubut">Chubut</option>
+                        <option value="Córdoba">Córdoba</option>
+                        <option value="Corrientes">Corrientes</option>
+                        <option value="Entre Ríos">Entre Ríos</option>
+                        <option value="Formosa">Formosa</option>
+                        <option value="Jujuy">Jujuy</option>
+                        <option value="La Pampa">La Pampa"</option>
+                        <option value="La Rioja">La Rioja</option>
+                        <option value="Mendoza">Mendoza</option>
+                        <option value="Misiones">Misiones</option>
+                        <option value="Neuquén">Neuquén</option>
+                        <option value="Río Negro">Río Negro</option>
+                        <option value="Salta">Salta</option>
+                        <option value="San Juan">San Juan</option>
+                        <option value="San Luis">San Luis</option>
+                        <option value="Santa Cruz">Santa Cruz</option>
+                        <option value="Santa Fe">Santa Fe</option>
+                        <option value="Santiago del Estero">
+                          Santiago del Estero
+                        </option>
+                        <option value="Tierra del Fuego, Antártida e Islas del Atlántico Sur">
+                          Tierra del Fuego, Antártida e Islas del Atlántico Sur
+                        </option>
+                        <option value="Tucumán">Tucumán</option>
+                      </Form.Select>
+                    </Form.Group>
+                  </Col>
+                  <Col>
+                    <Form.Group
+                      className="mb-3"
+                      controlId="formBasicLocalidades"
+                    >
+                      <div class="d-flex justify-content-center">
+                        <div>
+                          <Form.Label>
+                            <u>
+                              <i>
+                                <b>Barrio</b>
+                              </i>
+                            </u>
+                          </Form.Label>
+                        </div>
+                      </div>
+                      <Form.Select {...register("barrio")}>
+                        <option value="">Elige...</option>
+                        {localidades.map((el) => (
+                          <option
+                            key={
+                              el +
+                              (Math.floor(Math.random() * 50) + 1) +
+                              (Math.floor(Math.random() * 50) + 1) +
+                              (Math.floor(Math.random() * 50) + 1)
+                            }
+                            value={el}
+                          >
+                            {el}
+                          </option>
+                        ))}
+                      </Form.Select>
                     </Form.Group>
                   </Col>
                 </Row>
