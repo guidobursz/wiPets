@@ -2,10 +2,10 @@ const express = require("express");
 const router = express.Router();
 
 const {
-	indexGET,
-	verifiedStoresPOST,
-	storeInfoGET,
-	storeUpdatePUT,
+  indexGET,
+  verifiedStoresPOST,
+  storeInfoGET,
+  storeUpdatePUT,
 } = require("../routesHandlers/storeRouteHandlers");
 
 //Routes
