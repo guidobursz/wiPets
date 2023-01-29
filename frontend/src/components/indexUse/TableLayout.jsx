@@ -1,7 +1,7 @@
 //This will fetch and get verified stores, and make a table
-
+import { Link } from "react-router-dom";
 //Bootstrap
-//
+import Table from "react-bootstrap/Table";
 //Import components
 import StoreRowIndex from "../general/table/StoreRowIndex";
 import SpinnerBootstrap from "../SpinnerBootstrap";
@@ -10,7 +10,6 @@ import SpinnerBootstrap from "../SpinnerBootstrap";
 
 const TableLayout = ({ data }) => {
   // console.log(data);
-
   if (data.storesList === undefined) {
     return (
       <>
@@ -30,7 +29,7 @@ const TableLayout = ({ data }) => {
           )}
         </div>
 
-        <div>Hay un problemon</div>
+        <div>Hubo un problema al cargar los datos...</div>
       </>
     );
   } else {
@@ -54,10 +53,43 @@ const TableLayout = ({ data }) => {
 
         <div className="container">
           {data.storesList.map((el) => (
-            <StoreRowIndex data={el} />
+            <>
+              <StoreRowIndex data={el} />
+              <hr />
+            </>
           ))}
+          <h4>lograr hacer una tablA RESPONSIVE</h4>
+          <div className="">
+            <Table striped bordered hover>
+              <thead className="thead-dark">
+                <tr>
+                  <th>Nombre</th>
+                  <th>Servicios</th>
+                  <th>Barrio</th>
+                  <th>Provincia</th>
+                </tr>
+              </thead>
+              <tbody>
+                {data.storesList.map((el) => (
+                  <>
+                    <tr>
+                      <td>
+                        <Link to={`/store/${el.id}`}>{el.name}</Link>
+                      </td>
+                      <td>
+                        {el.Services.map((serv) => (
+                          <>{" " + serv.description + " "}</>
+                        ))}
+                      </td>
+                      <td>{el.barrio}</td>
+                      <td>{el.province}</td>
+                    </tr>
+                  </>
+                ))}
+              </tbody>
+            </Table>
+          </div>
         </div>
-
         {/* 
 
 <div className="border border-warning">
