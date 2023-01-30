@@ -13,7 +13,7 @@ import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/authPage/LoginPage";
 //user pages
 import RegisterStorePage from "./pages/storePages/RegisterStorePage";
-import RegisterUserPage from "./pages/RegisterUserPage";
+import RegisterUserPage from "./pages/authPage/RegisterUserPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserReservesPage from "./pages/UserReservesPage";
 import NewPetPage from "./pages/userPages/NewPetPage.jsx";

@@ -4,10 +4,10 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../components/Navbar";
-import RegisterUserForm from "../components/RegisterUserForm";
-import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
-import Footer from "../components/Footer";
+import Navbar from "../../components/Navbar";
+import RegisterUserForm from "../../components/authPage/register/RegisterUserForm";
+import StoreRegisterOpt from "../../components/indexUse/StoreRegisterOpt";
+import Footer from "../../components/Footer";
 
 const RegisterUserPage = () => {
 	return (
