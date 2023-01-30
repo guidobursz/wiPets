@@ -2,9 +2,11 @@
 import { Link } from "react-router-dom";
 //Bootstrap
 import Table from "react-bootstrap/Table";
+//MUI
+import { Typography } from "@mui/material";
 //Import components
-import StoreRowIndex from "../general/table/StoreRowIndex";
 import SpinnerBootstrap from "../SpinnerBootstrap";
+import MuiTable from "./MuiTable";
 //Import components
 //
 
@@ -51,59 +53,41 @@ const TableLayout = ({ data }) => {
           )}
         </div>
 
-        <div className="container">
-          {data.storesList.map((el) => (
-            <>
-              <StoreRowIndex data={el} />
-              <hr />
-            </>
-          ))}
-          <h4>lograr hacer una tablA RESPONSIVE</h4>
-          <div className="">
-            <Table striped bordered hover>
-              <thead className="thead-dark">
-                <tr>
-                  <th>Nombre</th>
-                  <th>Servicios</th>
-                  <th>Barrio</th>
-                  <th>Provincia</th>
-                </tr>
-              </thead>
-              <tbody>
-                {data.storesList.map((el) => (
-                  <>
-                    <tr>
-                      <td>
-                        <Link to={`/store/${el.id}`}>{el.name}</Link>
-                      </td>
-                      <td>
-                        {el.Services.map((serv) => (
-                          <>{" " + serv.description + " "}</>
-                        ))}
-                      </td>
-                      <td>{el.barrio}</td>
-                      <td>{el.province}</td>
-                    </tr>
-                  </>
-                ))}
-              </tbody>
-            </Table>
-          </div>
+        <h4>lograr hacer una tablA RESPONSIVE</h4>
+        <div className="">
+          <Table striped bordered hover>
+            <thead className="thead-dark">
+              <tr>
+                <th>Nombre</th>
+                <th>Servicios</th>
+                <th>Barrio</th>
+                <th>Provincia</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.storesList.map((el) => (
+                <>
+                  <tr>
+                    <td>
+                      <Link to={`/store/${el.id}`}>{el.name}</Link>
+                    </td>
+                    <td>
+                      {el.Services.map((serv) => (
+                        <>{" " + serv.description + " "}</>
+                      ))}
+                    </td>
+                    <td>{el.barrio}</td>
+                    <td>{el.province}</td>
+                  </tr>
+                </>
+              ))}
+            </tbody>
+          </Table>
         </div>
-        {/* 
-
-<div className="border border-warning">
-  {data.storesList.map((el) => (
-    <div className="border border-primary">
-      {el.name} || {el.province} ||{" "}
-      {el.Services.length >= 0
-        ? el.Services.map((serv) => <div>{serv.id}</div>)
-        : ""}
-    </div>
-  ))}
-</div>
-
-*/}
+        <Typography variant="h3">Tit, tabla con mui</Typography>
+        <div>
+          <MuiTable data={data} />
+        </div>
       </>
     );
   }

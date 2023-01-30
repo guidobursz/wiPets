@@ -4,10 +4,10 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../components/Navbar";
+import Navbar from "../../components/Navbar";
 
-import LoginForm from "../components/LoginForm";
-import Footer from "../components/Footer";
+import LoginForm from "../../components/authPage/login/LoginForm";
+import Footer from "../../components/Footer";
 
 const LoginPage = () => {
 	return (
