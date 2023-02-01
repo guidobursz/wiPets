@@ -208,14 +208,14 @@ const RegisterUserForm = () => {
                       {errors.last_name?.type === "maxLength" && (
                         <Alert variant="danger">
                           <Typography>
-                            Es obligatorio escribir el nombre.
+                            Es obligatorio escribir el apellido.
                           </Typography>
                         </Alert>
                       )}
                       {errors.last_name?.type === "pattern" && (
                         <Alert variant="danger">
                           <Typography>
-                            Es obligatorio escribir el nombre.
+                            Es obligatorio escribir el apellido.
                           </Typography>
                         </Alert>
                       )}

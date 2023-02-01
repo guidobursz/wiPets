@@ -12,7 +12,7 @@ import { AuthProvider } from "./context/AuthContex";
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/authPage/LoginPage";
 //user pages
-import RegisterStorePage from "./pages/storePages/RegisterStorePage";
+import RegisterStorePage from "./pages/authPage/RegisterStorePage"
 import RegisterUserPage from "./pages/authPage/RegisterUserPage";
 import UserProfilePage from "./pages/UserProfilePage";
 import UserReservesPage from "./pages/UserReservesPage";
