@@ -7,25 +7,24 @@ import { userRegister } from "../../../services/AuthAPI";
 //import components
 import CustomAlert from "../../CustomAlert";
 import SpinnerBootstrap from "../../SpinnerBootstrap";
-
+import AlertBootstrap from "../../AlertBootstrap";
 //Bootstrap styles
 import {
   Alert,
   Box,
   Paper,
   Grid,
-  ToggleButtonGroup,
-  ToggleButton,
   Button,
   TextField,
   FormControl,
   Typography,
 } from "@mui/material";
-import Form from "react-bootstrap/Form";
-// import Alert from "react-bootstrap/Alert";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-
+// test time picker
+// import dayjs from "dayjs";
+// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+// import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
+// test time picker
 const RegisterUserForm = () => {
   // const navigate = useNavigate();
   const {
@@ -50,7 +49,7 @@ const RegisterUserForm = () => {
 
   //on submit function
   const onSubmit = async (data) => {
-    // console.log(data);
+    console.log(data);
 
     //make first letter of name and lastname uppercase:
     let firstName = capitalizeFirstLetter(data.first_name);
@@ -68,6 +67,7 @@ const RegisterUserForm = () => {
       phone: data.telefono,
     };
 
+    console.log("data pre query: ", dataQuery);
     try {
       //Third. Create query.
       // eslint-disable-next-line
@@ -119,191 +119,19 @@ const RegisterUserForm = () => {
         )}
       </div>
 
-      {/* new form with material ui*/}
-      <Box>
-        <Paper elevation={12}>
-          <form autoComplete="false">
-            <Grid container spacing={2} padding={1}>
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="outlined-basic"
-                    label="Nombre"
-                    variant="outlined"
-                    {...register("first_name", {
-                      required: true,
-                      maxLength: 22,
-                      pattern: /^[a-zA-Z ]*$/,
-                    })}
-                  />
-                  {errors.first_name?.type === "required" && (
-                    <Alert severity="error">
-                      <Typography>
-                        Es obligatorio escribir el nombre.
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.first_name?.type === "maxLength" && (
-                    <Alert variant="danger">
-                      <Typography>
-                        Es obligatorio escribir el nombre.
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.first_name?.type === "pattern" && (
-                    <Alert variant="danger">
-                      <Typography>
-                        Es obligatorio escribir el nombre.
-                      </Typography>
-                    </Alert>
-                  )}
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="outlined-basic"
-                    label="Apellido"
-                    variant="outlined"
-                    {...register("last_name", {
-                      required: true,
-                      maxLength: 22,
-                      pattern: /^[a-zA-Z ]*$/,
-                    })}
-                  />
-                  {errors.last_name?.type === "required" && (
-                    <Alert severity="error">
-                      <Typography>
-                        Es obligatorio escribir el apellido.
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.last_name?.type === "maxLength" && (
-                    <Alert variant="danger">
-                      <Typography>
-                        Es obligatorio escribir el nombre.
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.last_name?.type === "pattern" && (
-                    <Alert variant="danger">
-                      <Typography>
-                        Es obligatorio escribir el nombre.
-                      </Typography>
-                    </Alert>
-                  )}
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="outlined-basic"
-                    label="Correo"
-                    variant="outlined"
-                    {...register("email", {
-                      required: true,
-                    })}
-                  />
-                  {errors.email?.type === "required" && (
-                    <Alert severity="error">
-                      <Typography>
-                        Es obligatorio escribir el correo.
-                      </Typography>
-                    </Alert>
-                  )}
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="outlined-basic"
-                    type={"password"}
-                    label="Contraseña"
-                    variant="outlined"
-                    {...register("password", {
-                      required: true,
-                      maxLength: 22,
-                    })}
-                  />
-                  {errors.password?.type === "required" && (
-                    <Alert severity="error">
-                      <Typography>
-                        Es obligatorio escribir una contraseña".
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.first_name?.type === "maxLength" && (
-                    <Alert variant="danger">
-                      <Typography>
-                        El maximo de la contraseña es de 22 caracteres.
-                      </Typography>
-                    </Alert>
-                  )}
-                </FormControl>
-              </Grid>
-
-              <Grid item xs={12} sm={6} md={6}>
-                <FormControl fullWidth>
-                  <TextField
-                    id="outlined-basic"
-                    type={"number"}
-                    label="Telefono"
-                    variant="outlined"
-                    {...register("Telefono", {
-                      required: true,
-                      minLength: 8,
-                      maxLength: 13,
-                    })}
-                  />
-                  {errors.telefono?.type === "required" && (
-                    <Alert severity="error">
-                      <Typography>
-                        Es obligatorio escribir un numero de contacto.
-                      </Typography>
-                    </Alert>
-                  )}
-                  {errors.telefono?.type === "minLength" && (
-                    <Alert severity="error">
-                      <Typography>Minimo 8 caractereso.</Typography>
-                    </Alert>
-                  )}
-                  {errors.telefono?.type === "maxLength" && (
-                    <Alert severity="error">
-                      <Typography>Minimo 12 caracteres.</Typography>
-                    </Alert>
-                  )}
-                </FormControl>
-              </Grid>
-
-              <div></div>
-            </Grid>
-          </form>
-        </Paper>
-      </Box>
-
       {/* registro exitoso */}
       <div>
         {registersuccessfully && loadingQuery === false && (
           <>
             <br />
             <br />
-            <Alert variant="success">
-              <Alert.Heading className="d-flex justify-content-center">
-                Gracias {userNameRegistered}, tu registro fue exitoso!
-              </Alert.Heading>
-              <br />
-              <p className="d-flex justify-content-center">
-                Revisa la casilla de email para poder confirmar tu cuenta y
-                comenzar a usar la web!
-              </p>
-              <p className="d-flex justify-content-center">
-                En caso de no recibir ningun correo, por favor contactar con
-                soporte C:
-              </p>
-            </Alert>
+            <AlertBootstrap
+              heading={`Gracias ${userNameRegistered}, tu registro fue exitoso!`}
+              t1={`Revisa la casilla de email para poder confirmar tu cuenta y
+                comenzar a usar la web!`}
+              t2={`En caso de no recibir ningun correo, por favor contactar con
+                soporte C:`}
+            />
             <br />
             <br />
           </>
@@ -313,40 +141,222 @@ const RegisterUserForm = () => {
       {/* form */}
       {loadingQuery === false && registersuccessfully === false && (
         <>
-          <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
-            {/* Nombre y apellido */}
-            {/* nombre */}
-            {/* telefono y cumple */}
-            <Row>
-              {/* nombre */}
-              <Col>{/* form group for phone number */}</Col>
-              {/* phone & Birthday */}
-              <Col>
-                <Form.Group className="mb-3" controlId="formBasicBirthday">
-                  <Form.Label>Fecha de nacimiento </Form.Label>
-                  <Form.Control
-                    type="date"
-                    {...register("birthday", {
-                      required: true,
-                    })}
-                  />
-                  <Form.Text className="text-muted">
-                    {errors.birthday?.type === "required" && (
-                      <Alert variant="danger">
-                        Es obligatorio colocar su fecha de nacimiento
-                      </Alert>
-                    )}
-                  </Form.Text>
-                </Form.Group>
-              </Col>
-            </Row>
+          <br />
+          {/* new form with material ui*/}
+          <Box>
+            <Paper elevation={12}>
+              <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
+                <Grid container spacing={2} padding={1}>
+                  <Grid item align="center" xs={12} md={12} lg={12}>
+                    <Typography variant="h4">Registro de usuario</Typography>
+                  </Grid>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-basic"
+                        label="Nombre"
+                        variant="outlined"
+                        {...register("first_name", {
+                          required: true,
+                          maxLength: 22,
+                          pattern: /^[a-zA-Z ]*$/,
+                        })}
+                      />
+                      {errors.first_name?.type === "required" && (
+                        <Alert severity="error">
+                          <Typography>
+                            Es obligatorio escribir el nombre.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.first_name?.type === "maxLength" && (
+                        <Alert variant="danger">
+                          <Typography>
+                            Es obligatorio escribir el nombre.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.first_name?.type === "pattern" && (
+                        <Alert variant="danger">
+                          <Typography>
+                            Es obligatorio escribir el nombre.
+                          </Typography>
+                        </Alert>
+                      )}
+                    </FormControl>
+                  </Grid>
 
-            <Grid>
-              <Button variant="contained" type="submit">
-                Registrar
-              </Button>
-            </Grid>
-          </form>
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-basic"
+                        label="Apellido"
+                        variant="outlined"
+                        {...register("last_name", {
+                          required: true,
+                          maxLength: 22,
+                          pattern: /^[a-zA-Z ]*$/,
+                        })}
+                      />
+                      {errors.last_name?.type === "required" && (
+                        <Alert severity="error">
+                          <Typography>
+                            Es obligatorio escribir el apellido.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.last_name?.type === "maxLength" && (
+                        <Alert variant="danger">
+                          <Typography>
+                            Es obligatorio escribir el nombre.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.last_name?.type === "pattern" && (
+                        <Alert variant="danger">
+                          <Typography>
+                            Es obligatorio escribir el nombre.
+                          </Typography>
+                        </Alert>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-basic"
+                        label="Correo"
+                        variant="outlined"
+                        {...register("email", {
+                          required: true,
+                        })}
+                      />
+                      {errors.email?.type === "required" && (
+                        <Alert severity="error">
+                          <Typography>
+                            Es obligatorio escribir el correo.
+                          </Typography>
+                        </Alert>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-basic"
+                        type={"password"}
+                        label="Contraseña"
+                        variant="outlined"
+                        {...register("password", {
+                          required: true,
+                          minLength: 6,
+                          maxLength: 22,
+                        })}
+                      />
+                      {errors.password?.type === "required" && (
+                        <Alert severity="error">
+                          <Typography>
+                            Es obligatorio escribir una contraseña.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.password?.type === "minLength" && (
+                        <Alert variant="error">
+                          <Typography>
+                            El minimo de la contraseña es de 6 caracteres.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.password?.type === "maxLength" && (
+                        <Alert variant="error">
+                          <Typography>
+                            El maximo de la contraseña es de 22 caracteres.
+                          </Typography>
+                        </Alert>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        id="outlined-basic"
+                        type={"number"}
+                        label="Telefono"
+                        variant="outlined"
+                        {...register("telefono", {
+                          required: true,
+                          minLength: 8,
+                          maxLength: 13,
+                        })}
+                      />
+                      {errors.telefono?.type === "required" && (
+                        <Alert severity="error">
+                          <Typography>
+                            Es obligatorio escribir un telefono.
+                          </Typography>
+                        </Alert>
+                      )}
+                      {errors.telefono?.type === "minLength" && (
+                        <Alert severity="error">
+                          <Typography>Minimo 8 caracteres.</Typography>
+                        </Alert>
+                      )}
+                      {errors.telefono?.type === "maxLength" && (
+                        <Alert severity="error">
+                          <Typography>Minimo 12 caracteres.</Typography>
+                        </Alert>
+                      )}
+                    </FormControl>
+                  </Grid>
+
+                  <Grid item xs={12} sm={6} md={6}>
+                    <FormControl fullWidth>
+                      <TextField
+                        label="Fecha de nacimiento"
+                        type="date"
+                        InputLabelProps={{
+                          shrink: true,
+                        }}
+                        {...register("birthday", {
+                          required: true,
+                        })}
+                      />
+                      {errors.birthday?.type === "required" && (
+                        <Alert severity="error">
+                          Es obligatorio colocar su fecha de nacimiento.
+                        </Alert>
+                      )}
+                    </FormControl>
+                    {/*
+no funco
+                    <LocalizationProvider dateAdapter={AdapterDayjs}>
+                      <MobileDatePicker
+                        label="Fecha de nacimiento"
+                        inputFormat="MM/DD/YYYY"
+                        renderInput={(params) => <TextField {...params} />}
+                        value={dateValue}
+                        onChange={handleDateChange}
+                        {...register("birthday", {
+                          required: true,
+                        })}
+                      />
+                    </LocalizationProvider>
+
+*/}
+                  </Grid>
+
+                  <Grid item xs={12} sm={12} md={12} lg={12} align="center">
+                    <Button variant="contained" type="submit">
+                      Registrar
+                    </Button>
+                  </Grid>
+                </Grid>
+              </form>
+            </Paper>
+          </Box>
         </>
       )}
 
