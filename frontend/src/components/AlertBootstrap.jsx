@@ -8,7 +8,8 @@ const AlertBootstrap = ({ heading, t1, t2, extra }) => {
       </Alert.Heading>
       <br />
       <p className="d-flex justify-content-center">{t1}</p>
-      <p className="d-flex justify-content-center">{t2}</p>
+      {t2 ? <p className="d-flex justify-content-center">{t2}</p> : ""}
+      {extra ? <p className="d-flex justify-content-center">{extra}</p> : ""}
     </Alert>
   );
 };

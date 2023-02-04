@@ -4,21 +4,20 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../../components/Navbar";
-
+import Appbar from "../../components/Navbar/AppBar";
 import LoginForm from "../../components/authPage/login/LoginForm";
 import Footer from "../../components/Footer";
 
 const LoginPage = () => {
-	return (
-		<div>
-			<Navbar />
-			<Container>
-				<LoginForm />
-			</Container>
-			<Footer />
-		</div>
-	);
+  return (
+    <div>
+      <Appbar />
+      <Container>
+        <LoginForm />
+      </Container>
+      <Footer />
+    </div>
+  );
 };
 
 export default LoginPage;
