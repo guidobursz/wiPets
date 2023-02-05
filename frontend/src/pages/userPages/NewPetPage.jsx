@@ -5,7 +5,7 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../../components/Navbar";
+import Appbar from "../../components/Navbar/AppBar";
 import NewPetForm from "../../components/NewPetPage/NewPetForm";
 import Footer from "../../components/Footer";
 
@@ -26,7 +26,7 @@ const NewPetPage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Appbar />
       <Container>
         <h2>Agrega a tu mascota a la web!</h2>
         <br />

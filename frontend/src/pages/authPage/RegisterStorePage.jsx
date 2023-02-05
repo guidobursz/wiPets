@@ -4,14 +4,14 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../../components/Navbar";
+import Appbar from "../../components/Navbar/AppBar";
 import RegisterStoreForm from "../../components/storePages/registerPage/RegisterStoreForm";
 import Footer from "../../components/Footer";
 
 const RegisterStorePage = () => {
   return (
     <div>
-      <Navbar />
+      <Appbar />
       <Container>
         <RegisterStoreForm />
       </Container>

@@ -8,7 +8,7 @@ import { getStoreInfoById } from "../../services/StoresAPI";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../../components/Navbar";
+import Appbar from "../../components/Navbar/AppBar";
 import Footer from "../../components/Footer";
 import InfoLayout from "../../components/storePages/profilePage/InfoLayout";
 
@@ -51,7 +51,7 @@ const StoreProfilePage = () => {
 
   return (
     <div>
-      <Navbar />
+      <Appbar />
       <Container>
         <InfoLayout
           loading={loadingQuery}

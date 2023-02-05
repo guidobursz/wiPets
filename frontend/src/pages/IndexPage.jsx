@@ -6,7 +6,6 @@ import Container from "react-bootstrap/Container";
 
 //Import Components
 import Appbar from "../components/Navbar/AppBar";
-import Navbar from "../components/Navbar";
 import StoreRegisterOpt from "../components/indexUse/StoreRegisterOpt";
 import TableLayout from "../components/indexUse/TableLayout";
 import FilterInputsTable from "../components/indexUse/FilterInputsTable";
@@ -49,7 +48,6 @@ const IndexPage = () => {
   return (
     <div>
       <Appbar />
-      <Navbar />
       <Container>
         <h1> Bienvenidos a WiPet! </h1>
         <hr />

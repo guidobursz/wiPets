@@ -134,19 +134,18 @@ function Appbar() {
                 <Box>
                   <Typography
                     variant="h6"
-                    noWrap
-                    component="a"
-                    href="/"
+                    as={Link}
+                    to={"/"}
                     sx={{
                       mr: 2,
                       fontFamily: "monospace",
                       fontWeight: 700,
-                      letterSpacing: ".3rem",
+                      letterSpacing: ".1rem",
                       color: "inherit",
                       textDecoration: "none",
                     }}
                   >
-                    LOGO
+                    WiPet
                   </Typography>
                 </Box>
               </Grid>
@@ -216,19 +215,18 @@ function Appbar() {
                 <Box>
                   <Typography
                     variant="h6"
-                    noWrap
-                    component="a"
-                    href="/"
+                    as={Link}
+                    to={"/"}
                     sx={{
                       mr: 2,
                       fontFamily: "monospace",
                       fontWeight: 700,
-                      letterSpacing: ".3rem",
+                      letterSpacing: ".1rem",
                       color: "inherit",
                       textDecoration: "none",
                     }}
                   >
-                    LOGO
+                    WiPet
                   </Typography>
                 </Box>
               </Grid>

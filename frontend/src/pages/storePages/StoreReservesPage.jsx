@@ -7,7 +7,7 @@ import { useParams } from "react-router-dom";
 import Container from "react-bootstrap/Container";
 
 //Import Components
-import Navbar from "../../components/Navbar";
+import Appbar from "../../components/Navbar/AppBar";
 import Footer from "../../components/Footer";
 import InfoLayout from "../../components/storePages/profilePage/InfoLayout";
 
@@ -35,7 +35,7 @@ const StoreReservesPages = () => {
 
   return (
     <div>
-      <Navbar />
+      <Appbar />
       <Container>
         <hr />
         <h3> Back vbutton?</h3>
