@@ -16,7 +16,7 @@ import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
-
+import { deepOrange } from "@mui/material/colors";
 //Context
 
 import { useContext } from "react";
@@ -39,6 +39,12 @@ function Appbar() {
   const navigate = useNavigate();
   //get contxt
   const { authT, accInfo, logOffRemoveCookies } = useContext(AuthContext);
+
+  //Get the first letter of the name if its a user acc:
+  let flName;
+  if (accInfo.accType === "user") {
+    flName = accInfo.name.charAt(0).toUpperCase();
+  }
 
   const makeLogOff = () => {
     logOffRemoveCookies();
@@ -155,8 +161,10 @@ function Appbar() {
                     <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                       <Avatar
                         alt="Remy Sharp"
-                        src="/static/images/avatar/2.jpg"
-                      />
+                        sx={{ bgcolor: deepOrange[500] }}
+                      >
+                        {flName}
+                      </Avatar>
                     </IconButton>
                   </Tooltip>
                   <Menu

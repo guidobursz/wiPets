@@ -3,7 +3,6 @@ import { useParams } from "react-router-dom";
 
 //Import utils:
 import { getUserById } from "../services/UserAPI";
-import { getUserPetsByUserId } from "../services/PetsAPI";
 import { getThreeFollwingAppointmentsByUserId } from "../services/AppointmentsAPI";
 
 //Bootstrap
@@ -20,7 +19,8 @@ import Footer from "../components/Footer";
 import { useContext } from "react";
 import AuthContext from "../context/AuthContex";
 
-//#TODO: desde aca enviara la info a renderizar en los componentes:
+//Styles
+import { Paper } from "@mui/material";
 
 //Ejemplo para userPetsDisplay:
 
@@ -39,8 +39,6 @@ const UserProfilePage = () => {
   const [loadingUserInfo, setLoadingUserInfo] = useState(true);
   const [userData, setUserData] = useState({});
   //userBirthday will be = [day,month,year, complete, string]
-  const [userPetsData, setUserPetsData] = useState({});
-  //const [userAppointmentsData, setUserAppointmentsData] = useState({});
 
   //Use Effect to get data...
   useEffect(() => {
@@ -59,7 +57,7 @@ const UserProfilePage = () => {
       }
     };
     getUserData(userId, tokenJ);
-  }, [tokenJ]);
+  }, [tokenJ, userId]);
 
   //Get users appoints.
   const [loadingUserAppoints, setLoadingUsersAppoints] = useState(false);
@@ -81,13 +79,19 @@ const UserProfilePage = () => {
     <div>
       <Appbar />
       <Container>
-        <UserProfileDisplay loading={loadingUserInfo} user={userData} />
-        <UserAppointmentsDisplay
-          loading={loadingUserAppoints}
-          fetchData={updateUsersAppoints}
-          userAppointments={userAppoints}
-        />
-        <UserPetsDisplay />
+        <Paper elevation={15}>
+          <UserProfileDisplay loading={loadingUserInfo} user={userData} />
+        </Paper>
+        <Paper elevation={10}>
+          <UserAppointmentsDisplay
+            loading={loadingUserAppoints}
+            fetchData={updateUsersAppoints}
+            userAppointments={userAppoints}
+          />
+        </Paper>
+        <Paper elevation={10}>
+          <UserPetsDisplay />
+        </Paper>
       </Container>
       <Footer />
     </div>
