@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
+import React, { useState } from "react";
+import { useForm, Controller } from "react-hook-form";
 
 //Material Ui
 import {
@@ -13,6 +13,7 @@ import {
   Select,
   Button,
   Alert,
+  Typography,
 } from "@mui/material";
 
 //Mui date/time pickers imports:
@@ -21,33 +22,34 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
-//
+//Custom hooks
+import useUserPets from "../../hooks/useUserPets";
 
 //Component:
 const MakeReserveForm = () => {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm();
 
   //custom hook
-  //imports context and etcs...
-  // useUserPets() ->
-  const [loadingUserPets, setLoadingUserPets] = useState(false);
-  const [userPets, setUserPets] = useState([]);
-  //error case
-  const [errorUserPets, setErrorUserPets] = useState(false);
-  const [errorUPMessage, setErrorUPMessage] = useState(null);
-
+  const { loadingUserPets, userPets, errorUserPets } = useUserPets();
   //custom hook
 
   //States for pickers
   const [dateValue, setDateValue] = React.useState(null);
   const [timeValue, setTimeValue] = React.useState(null);
 
-  const handleSelectChange = (event) => {
-    console.log(event.target.value);
+  // const [reqDate, setreqDate] = useState(new Date());
+  const [reqDate, setreqDate] = useState(null);
+  // console.log(prueba);
+  // prueba ? console.log("si") : console.log("es undefined");
+
+  const handleDate = (newValue) => {
+    console.log(newValue);
+    setDateValue(newValue);
   };
 
   //on submit handler
@@ -63,23 +65,32 @@ const MakeReserveForm = () => {
             <Grid container spacing={2} padding={1}>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
-                  <InputLabel id="demo-simple-select-label">Mascota</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Mascota"
-                    onChange={handleSelectChange}
-                    {...register("mascota", { required: true })}
-                  >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
-                  </Select>
-
-                  {errors.mascota?.type === "required" && (
-                    <Alert severity="error">
-                      Por favor ingrese su mascota para la cita.
-                    </Alert>
+                  {userPets ? (
+                    <>
+                      <InputLabel id="demo-simple-select-label">
+                        Mascota
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-label"
+                        id="demo-simple-select"
+                        label="Mascota"
+                        {...register("mascota", { required: true })}
+                      >
+                        {userPets?.length >= 1 &&
+                          userPets.map((el) => (
+                            <MenuItem key={el.id} value={el.id}>
+                              {el.name}
+                            </MenuItem>
+                          ))}
+                      </Select>
+                      {errors.mascota?.type === "required" && (
+                        <Alert severity="error">
+                          Por favor ingrese su mascota para la cita.
+                        </Alert>
+                      )}
+                    </>
+                  ) : (
+                    <Typography>Por favor reiniciar la pagina.</Typography>
                   )}
                 </FormControl>
               </Grid>
@@ -90,23 +101,51 @@ const MakeReserveForm = () => {
                     id="outlined-basic"
                     label="Comentarios"
                     variant="outlined"
-                    placeholder="pepepepepe"
-                    {...register("comment", { required: true })}
+                    placeholder="Por ejemplo: Creo que Ruffo tiene dolor en la oreja."
+                    {...register("comment")}
                   />
-                  {errors.comment?.type === "required" && (
+                  {/*
+                      errors.comment?.type === "required" && (
                     <Alert severity="error">Por favor ingrese su nombre</Alert>
-                  )}
+                    )
+                  */}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+
+              <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                 <FormControl fullWidth>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  {/*
+#TODO: lo saque de internet, no se como funca... investigar
+https://stackoverflow.com/questions/72842158/material-ui-mui-date-picker-with-react-hook-form
+                  */}
+                  <Controller
+                    name="date"
+                    defaultValue={reqDate}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onChange, ...restField } }) => (
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <DatePicker
+                          label="Fecha "
+                          onChange={(event) => {
+                            onChange(event);
+                            setreqDate(event);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                          {...restField}
+                        />
+                      </LocalizationProvider>
+                    )}
+                  />
+                  {errors.date?.type === "required" && (
+                    <Alert severity="error">Por favor ingrese la fecha</Alert>
+                  )}
+                  {/* 
+<LocalizationProvider dateAdapter={AdapterDayjs}>
                     <DatePicker
                       label={"Fecha"}
                       value={dateValue}
-                      onChange={(newValue) => {
-                        setDateValue(newValue);
-                      }}
+                      onChange={handleDate}
                       renderInput={(params) => (
                         <TextField
                           {...params}
@@ -118,12 +157,14 @@ const MakeReserveForm = () => {
                     {errors.fecha?.type === "required" && (
                       <Alert severity="error">Por favor ingrese la fecha</Alert>
                     )}
-                  </LocalizationProvider>
+</LocalizationProvider>
+                  */}
                 </FormControl>
               </Grid>
-              <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
+              <Grid item xs={6} sm={6} md={6} lg={6} xl={6}>
                 <FormControl fullWidth>
-                  <LocalizationProvider dateAdapter={AdapterDayjs}>
+                  {/* 
+<LocalizationProvider dateAdapter={AdapterDayjs}>
                     <TimePicker
                       label={"Hora"}
                       value={timeValue}
@@ -137,12 +178,39 @@ const MakeReserveForm = () => {
                         />
                       )}
                     />
-                  </LocalizationProvider>
                   {errors.hora?.type === "required" && (
+                    <Alert severity="error">Por favor ingrese la hora</Alert>
+                  )}
+                    </LocalizationProvider>
+                    */}
+                  {/* Usando la misma guia que arriba */}
+                  <Controller
+                    name="time"
+                    defaultValue={timeValue}
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { onChange, ...restField } }) => (
+                      <LocalizationProvider dateAdapter={AdapterDayjs}>
+                        <TimePicker
+                          label="Hora "
+                          onChange={(event) => {
+                            onChange(event);
+                            setTimeValue(event);
+                          }}
+                          renderInput={(params) => <TextField {...params} />}
+                          {...restField}
+                        />
+                      </LocalizationProvider>
+                    )}
+                  />
+                  {errors.time?.type === "required" && (
                     <Alert severity="error">Por favor ingrese la hora</Alert>
                   )}
                 </FormControl>
               </Grid>
+              {/* test*/}
+              <Grid item xs={12} sm={12} md={12} lg={12} xl={12}></Grid>
+              {/* test*/}
               <Grid item xs>
                 <Grid container>
                   <Grid xs display={"flex"} justifyContent={"center"}>
