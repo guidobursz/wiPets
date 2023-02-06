@@ -13,6 +13,7 @@ export default function useUserPets() {
   //States:
   const [loadingUserPets, setLoadingUserPets] = useState(false);
   const [userPets, setUserPets] = useState([]);
+  const [petOwner, setPetOwner] = useState({});
   //error case
   const [errorUserPets, setErrorUserPets] = useState(false);
   const [errorUPMessage, setErrorUPMessage] = useState(null);
@@ -30,6 +31,11 @@ export default function useUserPets() {
         );
         // console.log("fetch: ", userPetsFetch);
         setUserPets(userPetsFetch.data.userPets);
+        setPetOwner({
+          id: accInfo.accId,
+          name: accInfo.name,
+          email: accInfo.email,
+        });
         setLoadingUserPets(false);
       } catch (error) {
         console.log("error fetch: ", error.message);
@@ -41,5 +47,5 @@ export default function useUserPets() {
     getPets();
   }, [accInfo]);
   //return states:
-  return { loadingUserPets, userPets, errorUserPets, errorUPMessage };
+  return { loadingUserPets, userPets, petOwner, errorUserPets, errorUPMessage };
 }

@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useForm, Controller } from "react-hook-form";
 
+//Query
+import { postNewAppointment } from "../../services/AppointmentsAPI";
+
 //Material Ui
 import {
   Box,
@@ -24,9 +27,15 @@ import { TimePicker } from "@mui/x-date-pickers/TimePicker";
 
 //Custom hooks
 import useUserPets from "../../hooks/useUserPets";
+import useStoreInfo from "../../hooks/useStoreInfo";
+import useToken from "../../hooks/useToken";
+// import useServicesByStoreId from "../../hooks/useServices";
+
+//Utils
+import { formDateTimeHelper } from "../../tools/dateHelper";
 
 //Component:
-const MakeReserveForm = () => {
+const MakeReserveForm = ({ storeID }) => {
   const {
     register,
     handleSubmit,
@@ -35,16 +44,20 @@ const MakeReserveForm = () => {
   } = useForm();
 
   //custom hook
-  const { loadingUserPets, userPets, errorUserPets } = useUserPets();
+  const { loadingUserPets, userPets, petOwner, errorUserPets } = useUserPets();
+  const { loadingStoreInfo, storeInfo, errorStoreInfo, errorSIMessage } =
+    useStoreInfo(storeID);
+  // const { loadingServices, services, errorServices } = useServicesByStoreId();
+  const { token } = useToken();
+  // console.log("token: ", services);
   //custom hook
 
   //States for pickers
   const [dateValue, setDateValue] = React.useState(null);
   const [timeValue, setTimeValue] = React.useState(null);
 
-  // const [reqDate, setreqDate] = useState(new Date());
-  const [reqDate, setreqDate] = useState(null);
-  // console.log(prueba);
+  //States for error/success query
+  const [newAppOK, setNewAppOK] = React.useState(null);
   // prueba ? console.log("si") : console.log("es undefined");
 
   const handleDate = (newValue) => {
@@ -54,7 +67,29 @@ const MakeReserveForm = () => {
 
   //on submit handler
   const onSubmit = async (data) => {
-    console.log(data);
+    // console.log(data);
+
+    let { okDate, okTime } = formDateTimeHelper(data.date, data.time);
+    // console.log(okDate, okTime);
+
+    let queryBody = {
+      date: okDate,
+      // dateOK: "2023-06-05",
+      time: okTime,
+      // timeOK: "18:00:00",
+      comment: data.comment,
+      storeId: storeID,
+      petId: data.mascota,
+      serviceId: data.service,
+    };
+    console.log("QueryBody: ", queryBody);
+    try {
+      let newApp = await postNewAppointment(token, queryBody);
+      console.log(newApp);
+      // setNewAppOK(newApp);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -63,6 +98,33 @@ const MakeReserveForm = () => {
         <Box>
           <form autoComplete="off" onSubmit={handleSubmit(onSubmit)}>
             <Grid container spacing={2} padding={1}>
+              <Grid item xs={6} sm={6}>
+                {storeInfo.name ? (
+                  <TextField
+                    label="Local"
+                    defaultValue={`${storeInfo.name}`}
+                    // value={`${storeInfo.name}`}
+                    variant="standard"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                ) : null}
+              </Grid>
+              <Grid item xs={6} sm={6}>
+                {petOwner.name ? (
+                  <TextField
+                    id="standard-read-only-input"
+                    label="Cliente"
+                    defaultValue={`${petOwner.name}`}
+                    // value={petOwner.name}
+                    variant="standard"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                ) : null}
+              </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   {userPets ? (
@@ -94,6 +156,33 @@ const MakeReserveForm = () => {
                   )}
                 </FormControl>
               </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <InputLabel id="demo-simple-select-label">
+                    Servicio
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    label="Servicio"
+                    {...register("service", { required: true })}
+                  >
+                    <MenuItem value="1">Veterinaria</MenuItem>
+                    <MenuItem value="2">Peluqueria</MenuItem>
+                    <MenuItem value="3">Alimento</MenuItem>
+                    <MenuItem value="4">Guarderia</MenuItem>
+                    <MenuItem value="x1">
+                      Fetchear y obtener segun store?
+                    </MenuItem>
+                  </Select>
+                  {errors.mascota?.type === "required" && (
+                    <Alert severity="error">
+                      Por favor ingrese el servicio deseado.
+                    </Alert>
+                  )}
+                </FormControl>
+              </Grid>
+
               <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                 <FormControl fullWidth>
                   <TextField
@@ -120,7 +209,7 @@ https://stackoverflow.com/questions/72842158/material-ui-mui-date-picker-with-re
                   */}
                   <Controller
                     name="date"
-                    defaultValue={reqDate}
+                    defaultValue={dateValue}
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { onChange, ...restField } }) => (
@@ -129,7 +218,7 @@ https://stackoverflow.com/questions/72842158/material-ui-mui-date-picker-with-re
                           label="Fecha "
                           onChange={(event) => {
                             onChange(event);
-                            setreqDate(event);
+                            setDateValue(event);
                           }}
                           renderInput={(params) => <TextField {...params} />}
                           {...restField}

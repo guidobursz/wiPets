@@ -1,5 +1,5 @@
 import React from "react";
-// import { useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 //Bootstrap
 import Container from "react-bootstrap/Container";
@@ -14,8 +14,8 @@ import Footer from "../../components/Footer";
 // import AuthContext from "../../context/AuthContex";
 
 const MakeReservePage = () => {
-  // let params = useParams();
-  // let storeId = params.id;
+  let params = useParams();
+  let storeId = params.id;
   //#TODO: might rethink how to save the jwt, bc if you refresh (f5) inside page, data will not showup
   //might be bc the states dont refresh as soon
 
@@ -31,7 +31,7 @@ const MakeReservePage = () => {
       <h2>Realiza tu reserva ahora mismo!</h2>
       <Container>
         <br />
-        <MakeReserveForm />
+        <MakeReserveForm storeID={storeId} />
       </Container>
       <Footer />
     </div>

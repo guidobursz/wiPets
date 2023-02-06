@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 //Import utils:
 import { getStoreInfoById } from "../../services/StoresAPI";
@@ -15,6 +15,7 @@ import InfoLayout from "../../components/storePages/profilePage/InfoLayout";
 //Import context
 import { useContext } from "react";
 import AuthContext from "../../context/AuthContex";
+import { Button } from "@mui/material";
 
 const StoreProfilePage = () => {
   let params = useParams();
@@ -24,6 +25,7 @@ const StoreProfilePage = () => {
 
   //Get context data:
   const { accInfo } = useContext(AuthContext);
+  let userType = accInfo.accType; //"user"
   let tokenJ = accInfo.ajt;
 
   //States
@@ -58,6 +60,16 @@ const StoreProfilePage = () => {
           storeInfo={storeInfo}
           storeServices={storeServices}
         />
+        <hr />
+        {userType && userType === "user" && (
+          <Button
+            variant="contained"
+            as={Link}
+            to={`/store/${storeId}/newreserve/`}
+          >
+            Pedir reserva!
+          </Button>
+        )}
         <hr />
         <h3> Un mapita viendo donde se ve la tienda?</h3>
       </Container>
