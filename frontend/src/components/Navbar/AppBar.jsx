@@ -74,9 +74,10 @@ function Appbar() {
                       fontFamily: "monospace",
                       fontWeight: 700,
                       letterSpacing: ".1rem",
-                      color: "inherit",
+                      color: "white",
                       textDecoration: "none",
                     }}
+                    style={{ textDecoration: "none", color: "white" }}
                   >
                     WiPet
                   </Typography>
@@ -93,9 +94,10 @@ function Appbar() {
                       fontFamily: "monospace",
                       fontWeight: 600,
                       letterSpacing: ".05rem",
-                      color: "inherit",
+                      color: "white",
                       textDecoration: "none",
                     }}
+                    style={{ textDecoration: "none", color: "white" }}
                   >
                     LOGIN
                   </Typography>
@@ -109,9 +111,10 @@ function Appbar() {
                       fontFamily: "monospace",
                       fontWeight: 600,
                       letterSpacing: ".05rem",
-                      color: "inherit",
+                      color: "white",
                       textDecoration: "none",
                     }}
+                    style={{ textDecoration: "none", color: "white" }}
                   >
                     REGISTRO
                   </Typography>
@@ -147,9 +150,10 @@ function Appbar() {
                       fontFamily: "monospace",
                       fontWeight: 700,
                       letterSpacing: ".1rem",
-                      color: "inherit",
+                      color: "white",
                       textDecoration: "none",
                     }}
+                    style={{ textDecoration: "none", color: "white" }}
                   >
                     WiPet
                   </Typography>
@@ -230,9 +234,10 @@ function Appbar() {
                       fontFamily: "monospace",
                       fontWeight: 700,
                       letterSpacing: ".1rem",
-                      color: "inherit",
+                      color: "white",
                       textDecoration: "none",
                     }}
+                    style={{ textDecoration: "none", color: "white" }}
                   >
                     WiPet
                   </Typography>
