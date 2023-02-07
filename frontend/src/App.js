@@ -21,6 +21,7 @@ import MakeReservePage from "./pages/userPages/MakeReservePage";
 //store pages
 import StoreProfilePage from "./pages/storePages/StoreProfilePage";
 import StoreReservesPages from "./pages/storePages/StoreReservesPage";
+import TestingPage from "./pages/TestingPage";
 
 //Main app
 function App() {
@@ -43,6 +44,7 @@ function App() {
           <Route path="/store/:id" element={<StoreProfilePage />} />
           <Route path="/store/:id/reserves" element={<StoreReservesPages />} />
           {/* 404 page */}
+          <Route path="/testing" element={<TestingPage />} />
           <Route path="*" element={<h1> Page does not exist </h1>} />
         </Routes>
       </Router>
