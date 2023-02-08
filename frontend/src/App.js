@@ -8,6 +8,9 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContex";
 //import { ChakraProvider } from "@chakra-ui/react";
 
+//Import protections for routes:
+import AuthRequired from "./pages/protections/AuthRequired";
+
 //Import pages:
 import IndexPage from "./pages/IndexPage";
 import LoginPage from "./pages/authPage/LoginPage";
@@ -35,14 +38,24 @@ function App() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register/user" element={<RegisterUserPage />} />
           <Route path="/register/store" element={<RegisterStorePage />} />
-          {/* user pages */}
-          <Route path="/user/:id" element={<UserProfilePage />} />
-          <Route path="/user/:id/reserves" element={<UserReservesPage />} />
-          <Route path="/user/:id/pets/new" element={<NewPetPage />} />
-          <Route path="/store/:id/newreserve" element={<MakeReservePage />} />
           {/* store pages */}
           <Route path="/store/:id" element={<StoreProfilePage />} />
-          <Route path="/store/:id/reserves" element={<StoreReservesPages />} />
+
+          {/* UP: paths with no protection / DOWN: routes with protections*/}
+
+          {/*protection */}
+          <Route element={<AuthRequired />}>
+            {/* user pages */}
+            <Route path="/user/:id" element={<UserProfilePage />} />
+            <Route path="/user/:id/reserves" element={<UserReservesPage />} />
+            <Route path="/user/:id/pets/new" element={<NewPetPage />} />
+            <Route path="/store/:id/newreserve" element={<MakeReservePage />} />
+            {/* store pages */}
+            <Route
+              path="/store/:id/reserves"
+              element={<StoreReservesPages />}
+            />
+          </Route>
           {/* 404 page */}
           <Route path="/testing" element={<TestingPage />} />
           <Route path="*" element={<h1> Page does not exist </h1>} />
