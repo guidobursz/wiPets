@@ -42,8 +42,10 @@ function Appbar() {
 
   //Get the first letter of the name if its a user acc:
   let flName;
-  if (accInfo.accType === "user") {
+  if (accInfo && accInfo.accType === "user") {
     flName = accInfo.name.charAt(0).toUpperCase();
+  } else {
+    flName = "NN";
   }
 
   const makeLogOff = () => {
@@ -105,7 +107,7 @@ function Appbar() {
                   <Typography
                     variant="h6"
                     as={Link}
-                    to={"/register"}
+                    to={"/register/user/"}
                     sx={{
                       mr: 2,
                       fontFamily: "monospace",
@@ -275,7 +277,6 @@ function Appbar() {
                     open={Boolean(anchorElUser)}
                     onClose={handleCloseUserMenu}
                   >
-                    <hr />
                     <MenuItem
                       as={Link}
                       to={`/${accInfo.accType}/${accInfo.accId}`}
@@ -288,6 +289,7 @@ function Appbar() {
                     >
                       Mis Reservas
                     </MenuItem>
+                    <hr />
                     <MenuItem onClick={makeLogOff}>Cerrar Sesion</MenuItem>
                   </Menu>
                 </Box>
