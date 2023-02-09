@@ -29,32 +29,6 @@ const IndexPage = () => {
         <h5>TODO para mvp:</h5>
         <p>1 - Armar esqueleto para reutilizar TABLAS</p>
         <p>
-          2 - Proteger /user/:id y /user/:id/reserves.
-          <p>
-            <b>
-              Unicamente tendria que entrar el usuario cuyo accId(cookies) ===
-              params.id.
-            </b>
-          </p>
-          <p>
-            <b>
-              Como las cookies la puede modificar el usuario, habria una DOBLE
-              proteccion porque cuando se envia la query siempre se saca el id
-              del jwt. Por lo que el user no podria modificar.
-            </b>
-            <p>
-              <b>
-                El componente que muestre el Error al UI, podria tener el
-                redirect con el timeout
-              </b>
-            </p>
-          </p>
-        </p>
-        <p>
-          3 - Proteger ruta: /store/:id/reserves.
-          <b>Misma logica que solucion del item 2.</b>
-        </p>
-        <p>
           4 - Arreglar componente y diseno donde se muestra la info del
           user/store
         </p>

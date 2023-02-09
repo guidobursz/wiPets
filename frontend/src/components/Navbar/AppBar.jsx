@@ -49,6 +49,7 @@ function Appbar() {
   }
 
   const makeLogOff = () => {
+    // console.log(logOffRemoveCookies);
     logOffRemoveCookies();
     navigate("/");
   };

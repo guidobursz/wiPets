@@ -10,7 +10,10 @@ import { Link, useNavigate } from "react-router-dom";
 //Custom hook
 import useCountDown from "../../hooks/useCountDown";
 
-const TokenError = () => {
+const TokenError = ({ logOffRemoveCookies }) => {
+  //Get logout function to redirect & log out
+  console.log(logOffRemoveCookies);
+  //
   const { countDown, countDownStatus } = useCountDown(6);
   //Decl
   const navigate = useNavigate();

@@ -6,10 +6,11 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 //imp contexts/providers
 import { AuthProvider } from "./context/AuthContex";
-//import { ChakraProvider } from "@chakra-ui/react";
 
 //Import protections for routes:
 import AuthRequired from "./pages/protections/AuthRequired";
+import AccIdCheck from "./pages/protections/AccIdCheck";
+import NotAuthRequired from "./pages/protections/NotAuthRequired";
 
 //Import pages:
 import IndexPage from "./pages/IndexPage";
@@ -32,28 +33,49 @@ function App() {
     <AuthProvider>
       <Router>
         <Routes>
+          {/* Paths that has no requirement */}
           {/* index */}
           <Route path="/" element={<IndexPage />} />
-          {/* auth routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/register/user" element={<RegisterUserPage />} />
-          <Route path="/register/store" element={<RegisterStorePage />} />
           {/* store pages */}
           <Route path="/store/:id" element={<StoreProfilePage />} />
 
-          {/* UP: paths with no protection / DOWN: routes with protections*/}
+          {/* Only pass if not logged */}
+          <Route element={<NotAuthRequired />}>
+            {/* NO auth routes */}
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/register/user" element={<RegisterUserPage />} />
+            <Route path="/register/store" element={<RegisterStorePage />} />
+          </Route>
 
-          {/*protection */}
+          {/* AUTH REQUIRED*/}
           <Route element={<AuthRequired />}>
             {/* user pages */}
-            <Route path="/user/:id" element={<UserProfilePage />} />
-            <Route path="/user/:id/reserves" element={<UserReservesPage />} />
+            <Route
+              path="/user/:id"
+              element={
+                <AccIdCheck>
+                  <UserProfilePage />
+                </AccIdCheck>
+              }
+            />
+            <Route
+              path="/user/:id/reserves"
+              element={
+                <AccIdCheck>
+                  <UserReservesPage />
+                </AccIdCheck>
+              }
+            />
             <Route path="/user/:id/pets/new" element={<NewPetPage />} />
             <Route path="/store/:id/newreserve" element={<MakeReservePage />} />
             {/* store pages */}
             <Route
               path="/store/:id/reserves"
-              element={<StoreReservesPages />}
+              element={
+                <AccIdCheck>
+                  <StoreReservesPages />
+                </AccIdCheck>
+              }
             />
           </Route>
           {/* 404 page */}
