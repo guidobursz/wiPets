@@ -1,4 +1,4 @@
-import { Button, Grid } from "@mui/material";
+import { Button, Grid, MenuItem } from "@mui/material";
 import { Box } from "@mui/system";
 import { useContext } from "react";
 import Alert from "react-bootstrap/Alert";
@@ -16,7 +16,8 @@ function IdsNotEqual() {
     console.log(logOffRemoveCookies);
     logOffRemoveCookies();
     // console.log("ir a login y no tener logged acc");
-    navigate("/login");
+    window.location.replace(`${window.location.origin}/login`);
+    // navigate("/login");
   };
 
   return (
@@ -36,6 +37,8 @@ function IdsNotEqual() {
               Volver A Iniciar Sesion
             </Button>
           </Grid>
+
+          <MenuItem onClick={logOutAndRedirect}>Cerrar Sesion</MenuItem>
           <p>
             No entiendo porque el onclick del boton que ejecuta la funcion de
             logOutAndRedirect, la cual ejecuta: logOffRemoveCookies, de la misma
