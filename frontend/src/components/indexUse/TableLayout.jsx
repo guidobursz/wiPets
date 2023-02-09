@@ -11,13 +11,13 @@ import MuiTable from "./MuiTable";
 //
 
 const TableLayout = ({ data }) => {
-  // console.log(data);
-  if (data.storesList === undefined) {
+  console.log(data);
+  if (data.verifStores === undefined) {
     return (
       <>
         {/* div for center spinner */}
         <div className="mx-auto">
-          {data.loadingQuery === true && (
+          {data.loadingVerifStores === true && (
             <>
               <br />
               <br />
@@ -53,37 +53,6 @@ const TableLayout = ({ data }) => {
           )}
         </div>
 
-        <h4>lograr hacer una tablA RESPONSIVE</h4>
-        <div className="">
-          <Table striped bordered hover>
-            <thead className="thead-dark">
-              <tr>
-                <th>Nombre</th>
-                <th>Servicios</th>
-                <th>Barrio</th>
-                <th>Provincia</th>
-              </tr>
-            </thead>
-            <tbody>
-              {data.storesList.map((el) => (
-                <>
-                  <tr>
-                    <td>
-                      <Link to={`/store/${el.id}`}>{el.name}</Link>
-                    </td>
-                    <td>
-                      {el.Services.map((serv) => (
-                        <>{" " + serv.description + " "}</>
-                      ))}
-                    </td>
-                    <td>{el.barrio}</td>
-                    <td>{el.province}</td>
-                  </tr>
-                </>
-              ))}
-            </tbody>
-          </Table>
-        </div>
         <Typography variant="h3">Tit, tabla con mui</Typography>
         <div>
           <MuiTable data={data} />

@@ -11,39 +11,15 @@ import TableLayout from "../components/indexUse/TableLayout";
 import FilterInputsTable from "../components/indexUse/FilterInputsTable";
 // import TESTbtnCookie from "../components/TESTbtnCookie";
 import Footer from "../components/Footer";
+import useVerifiedStores from "../hooks/useVerifiedStores";
 
 const IndexPage = () => {
   //Fetch data logic
-  //initial value for queryParams
-  let initialParams = {
-    storeName: "",
-    services: [],
-    province: "",
-    barrio: "",
-  };
-  //states
-  const [loadingQuery, setLoadingQuery] = useState(true);
-  const [storesList, setStoresList] = useState();
-  const [queryParams, setQueryParams] = useState(initialParams);
 
-  useEffect(() => {
-    setLoadingQuery(true);
-
-    //fetch function:
-    const getStores = async (queryParams) => {
-      try {
-        let fetchStores = await POSTVerifiedStores(queryParams);
-        //console.log(fetchStores);
-        setStoresList(fetchStores.data.allVStores);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getStores(queryParams);
-
-    //setLoading false
-    setLoadingQuery(false);
-  }, [queryParams]);
+  //custom hook for fetching:
+  const { loadingVerifStores, setQueryFilter, verifStores, errorVerifStores } =
+    useVerifiedStores();
+  // console.log("verif stores c hook: ", verifStores);
 
   return (
     <div>
@@ -84,8 +60,8 @@ const IndexPage = () => {
         </p>
         <p>5 - Arreglar tema imagenes de tiendas y users.</p>
         <hr />
-        <FilterInputsTable setQueryParams={setQueryParams} />
-        <TableLayout data={{ loadingQuery, storesList }} />
+        <FilterInputsTable setQueryParams={setQueryFilter} />
+        <TableLayout data={{ loadingVerifStores, verifStores }} />
         <hr />
         <h3>Mapa? mostrando las tiendas registradas?</h3>
         <hr />
